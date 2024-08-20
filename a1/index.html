@@ -11,13 +11,16 @@
     <header>
         <nav>
             <img src="images/favicon.png" alt="Pets Victoria Logo" class="logo">
-            <select name="nav" id="nav" onchange="location = this.value;">
-                <option value="index.html">Select an Option...</option>
-                <option value="index.html">Home</option>
-                <option value="pets.html">Pets</option>
-                <option value="add.html">Add More</option>
-                <option value="gallery.html">Gallery</option>
-            </select>
+                <div class="dropdown">
+                <button onclick="navDrop()" class="dropbtn">Select an Option</button>
+                <div id="Dropnav" class="dropdown-content">
+                    <a href="index.html">Home</a>
+                    <a href="pets.html">Pets</a>
+                    <a href="add.html">Add More</a>
+                    <a href="gallery.html">Gallery</a>
+                </div>
+            </div>
+
             <form>
                 <input type="text" placeholder="Search...">
                 <button type="submit">🔍</button>
