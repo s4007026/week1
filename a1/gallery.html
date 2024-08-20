@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pets Victoria - Gallery</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ysabeau+SC&family=Poetsen+One&display=swap">
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="images/logo.jpeg" alt="Pets Victoria Logo" class="logo">
+            <select name="nav" id="nav" onchange="location = this.value;">
+                <option value="index.html">Select an Option...</option>
+                <option value="index.html">Home</option>
+                <option value="pets.html">Pets</option>
+                <option value="add.html">Add More</option>
+                <option value="gallery.html">Gallery</option>
+            </select>
+            <form>
+                <input type="text" placeholder="Search...">
+                <button type="submit">🔍</button>
+            </form>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Pets Victoria has a lot to offer!</h2>
+        <p>For almost two decades, Pets Victoria has helped in creating true social change by bringing pet adoption into the mainstream. Our work has helped make a difference to the Victorian rescue community and thousands of pets in need of rescue and rehabilitation. But, until every pet is safe, respected, and loved, we all still have so, so, so much work to do.</p>
+        
+        <div class="gallery">
+            <div class="pet-card">
+                <img src="images/milo.jpg" alt="Milo">
+                <p>Milo</p>
+            </div>
+            <div class="pet-card">
+                <img src="images/willow.jpg" alt="Willow">
+                <p>Willow</p>
+            </div>
+            <div class="pet-card">
+                <img src="images/luna.jpg" alt="Luna">
+                <p>Luna</p>
+            </div>
+            <div class="pet-card">
+                <img src="images/baxter.jpg" alt="Baxter">
+                <p>Baxter</p>
+            </div>
+            <div class="pet-card">
+                <img src="images/oliver.jpg" alt="Oliver">
+                <p>Oliver</p>
+            </div>
+            <div class="pet-card">
+                <img src="images/bella.jpg" alt="Bella">
+                <p>Bella</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; Copyright 5123456. All Rights Reserved | Designed for Pets Victoria</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
