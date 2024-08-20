@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pets Victoria - Add a Pet</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ysabeau+SC&family=Poetsen+One&display=swap">
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="images/logo.jpeg" alt="Pets Victoria Logo" class="logo">
+            <select name="nav" id="nav" onchange="location = this.value;">
+                <option value="index.html">Select an Option...</option>
+                <option value="index.html">Home</option>
+                <option value="pets.html">Pets</option>
+                <option value="add.html">Add More</option>
+                <option value="gallery.html">Gallery</option>
+            </select>
+            <form>
+                <input type="text" placeholder="Search...">
+                <button type="submit">🔍</button>
+            </form>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Add a Pet</h2>
+        <p>You can add a new pet here.</p>
+        
+        <form action="submit_pet.php" method="post" enctype="multipart/form-data">
+            <label for="pet-name">Provide a name for the pet *</label>
+            <input type="text" id="pet-name" name="pet-name" required>
+
+            <label for="pet-type">Type *</label>
+            <select id="pet-type" name="pet-type" required>
+                <option value="">--Choose an option--</option>
+                <option value="cat">Cat</option>
+                <option value="dog">Dog</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="description">Description *</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+
+            <label for="image">Select an Image *</label>
+            <input type="file" id="image" name="image" required>
+
+            <label for="caption">Image Caption *</label>
+            <input type="text" id="caption" name="caption" required>
+
+            <label for="age">Age (months) *</label>
+            <input type="number" id="age" name="age" required>
+
+            <label for="location">Location *</label>
+            <input type="text" id="location" name="location" required>
+
+            <div class="form-actions">
+                <button type="submit">✔️ Submit</button>
+                <button type="reset">✖️ Clear</button>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; Copyright 5123456. All Rights Reserved | Designed for Pets Victoria</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
