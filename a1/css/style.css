@@ -15,10 +15,12 @@ header nav {
     padding: 10px 20px;
 }
 
+/* Adjusts the height of the logo in the navigation bar */
 nav .logo {
     height: 80px;
 }
 
+/* Styles the dropdown select box in the navigation */
 nav select {
     padding: 5px;
     font-family: 'Poetsen One', sans-serif;
@@ -250,4 +252,50 @@ button[type="reset"]:hover {
     font-family: 'Ysabeau SC', sans-serif;
     font-size: 1em;
     color: #36454F;
+}
+
+/* Container for image and overlay */
+.img-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px; 
+}
+
+.img-container img {
+    width: 100%;
+    transition: all 0.5s ease; 
+}
+
+/* Overlay on hover */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* Text in overlay */
+.overlay span {
+    color: white;
+    font-family: 'Poetsen One', sans-serif;
+    font-size: 1em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Blur the image and show the overlay on hover */
+.img-container:hover img {
+    filter: blur(5px);
+    transform: scale(1.1); /* zoom effect */
+}
+
+.img-container:hover .overlay {
+    opacity: 1;
 }
