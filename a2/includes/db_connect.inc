@@ -1,19 +1,22 @@
 <?php
-// Database connection file
 
-// Localhost or Jupiter server details (modify as needed for deployment)
-$host = 'localhost'; // Change this to your Jupiter server if deploying
-$dbname = 'petsvictoria'; // Database name
-$username = 'root'; // Database username
-$password = ''; // Database password
+$hostname = "talsprddb02.int.its.rmit.edu.au";
+$username = "s4007026";
+$password = "KkAkSummer13!!";
+$database = "petsvictoria";
 
-// Create a connection
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    // Set error mode to exception
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    // Display error message if connection fails
-    die("Connection failed: " . $e->getMessage());
+    // Create connection
+    $conn = new mysqli($hostname, $username, $password, $database);
+
+    // Check connection
+    if ($conn->connect_error) {
+        throw new Exception("Connection failed: " . $conn->connect_error);
+    }
+    echo "Connected successfully";
+
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
 }
+
 ?>
