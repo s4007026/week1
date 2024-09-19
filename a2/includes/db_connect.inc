@@ -5,7 +5,7 @@ if (strstr($_Server['SERVER_NAME'], 'localhost')) {
     $username = "root";
     password = "";
     dbname = "petsvictoria";
-    $imagePath="/~s4007026/public_html/wp/a2/images
+    $imagePath="C:\xampp\htdocs\wp\a2\images
 }   else {
     $servername = "talsprddb02.int.its.rmit.edu.au";
     $username = "s4007026";
