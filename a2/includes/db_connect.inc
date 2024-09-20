@@ -1,17 +1,19 @@
 <?php
 
-if (strstr($_Server['SERVER_NAME'], 'localhost')) {
-    $servername = "localhost"
+if (strstr($_SERVER['SERVER_NAME'], 'localhost')) {
+    $servername = "localhost";
     $username = "root";
-    password = "";
-    dbname = "petsvictoria";
-    $imagePath="C:\xampp\htdocs\wp\a2\images
-}   else {
+    $password = "";
+    $dbname = "petsvictoria";
+    $imagePath="C:\xampp\htdocs\wp\a2\images";
+} 
+
+  else {
     $servername = "talsprddb02.int.its.rmit.edu.au";
     $username = "s4007026";
-    password = "KkAkSummer13!!";
-    dbname = "petsvictoria";
-    $imagePath="/~s4007026/public_html/wp/a2/images
+    $password = "KkAkSummer13!!";
+    $dbname = "petsvictoria";
+    $imagePath="/~s4007026/public_html/wp/a2/images";
 }
 
 
@@ -26,7 +28,7 @@ try {
     echo "Connected successfully";
 
 } catch (Exception $e) {
-    echo "Error: " . $e->getMessage();  
+    echo " Error: " . $e->getMessage();  
 }
 
 ?>
