@@ -20,37 +20,37 @@ include 'includes/nav.inc';     // Navigation section
         </thead>
         <tbody>
             <tr>
-                <td>Milo</td>
+                <td><a href="details.php?id=1">Milo</a></td>
                 <td>Cat</td>
                 <td>3 months</td>
                 <td>Melbourne CBD</td>
             </tr>
             <tr>
-                <td>Baxter</td>
+                <td><a href="details.php?id=2">Baxter</a></td>
                 <td>Dog</td>
                 <td>5 months</td>
                 <td>Cape Woolamai</td>
             </tr>
             <tr>
-                <td>Luna</td>
+                <td><a href="details.php?id=3">Luna</a></td>
                 <td>Cat</td>
                 <td>1 month</td>
                 <td>Ferntree Gully</td>
             </tr>
             <tr>
-                <td>Willow</td>
+                <td><a href="details.php?id=4">Willow</a></td>
                 <td>Dog</td>
                 <td>48 months</td>
                 <td>Marysville</td>
             </tr>
             <tr>
-                <td>Oliver</td>
+                <td><a href="details.php?id=5">Oliver</a></td>
                 <td>Cat</td>
                 <td>12 months</td>
                 <td>Grampians</td>
             </tr>
             <tr>
-                <td>Bella</td>
+                <td><a href="details.php?id=6">Bella</a></td>
                 <td>Dog</td>
                 <td>10 months</td>
                 <td>Carlton</td>

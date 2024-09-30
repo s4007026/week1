@@ -10,57 +10,69 @@ include 'includes/nav.inc';     // Navigation section
     <div class="gallery">
         <div class="pet-card">
             <div class="img-container">
-                <img src="images/cat1.jpeg" alt="Milo">
-                <div class="overlay">
-                    <span>Discover More</span>
-                </div>
+                <a href="details.php?id=1">
+                    <img src="images/cat1.jpeg" alt="Milo">
+                    <div class="overlay">
+                        <span>Discover More</span>
+                    </div>
+                </a>
             </div>
-            <p>Milo</p>
+            <p><a href="details.php?id=1">Milo</a></p>
         </div>
         <div class="pet-card">
             <div class="img-container">
-                <img src="images/dog1.jpeg" alt="Willow">
-                <div class="overlay">
-                    <span>Discover More</span>
-                </div>
+                <a href="details.php?id=2">
+                    <img src="images/dog1.jpeg" alt="Willow">
+                    <div class="overlay">
+                        <span>Discover More</span>
+                    </div>
+                </a>
             </div>
-            <p>Willow</p>
+            <p><a href="details.php?id=2">Willow</a></p>
         </div>
         <div class="pet-card">
             <div class="img-container">
-                <img src="images/cat4.jpeg" alt="Luna">
-                <div class="overlay">
-                    <span>Discover More</span>
-                </div>
+                <a href="details.php?id=3">
+                    <img src="images/cat4.jpeg" alt="Luna">
+                    <div class="overlay">
+                        <span>Discover More</span>
+                    </div>
+                </a>
             </div>
-            <p>Luna</p>
+            <p><a href="details.php?id=3">Luna</a></p>
         </div>
         <div class="pet-card">
             <div class="img-container">
-                <img src="images/dog4.jpeg" alt="Baxter">
-                <div class="overlay">
-                    <span>Discover More</span>
-                </div>
+                <a href="details.php?id=4">
+                    <img src="images/dog4.jpeg" alt="Baxter">
+                    <div class="overlay">
+                        <span>Discover More</span>
+                    </div>
+                </a>
             </div>
-            <p>Baxter</p>
+            <p><a href="details.php?id=4">Baxter</a></p>
         </div>
         <div class="pet-card">
             <div class="img-container">
-                <img src="images/cat3.jpeg" alt="Oliver">
-                <div class="overlay">
-                    <span>Discover More</span>
-                </div>
+                <a href="details.php?id=5">
+                    <img src="images/cat3.jpeg" alt="Oliver">
+                    <div class="overlay">
+                        <span>Discover More</span>
+                    </div>
+                </a>
             </div>
-            <p>Oliver</p>
+            <p><a href="details.php?id=5">Oliver</a></p>
         </div>
         <div class="pet-card">
             <div class="img-container">
-                <img src="images/dog3.jpeg" alt="Bella">
-                <div class="overlay">
-                    <span>Discover More</span>
-                </div>
+                <a href="details.php?id=6">
+                    <img src="images/dog3.jpeg" alt="Bella">
+                    <div class="overlay">
+                        <span>Discover More</span>
+                    </div>
+                </a>
             </div>
-            <p>Bella</p>
+            <p><a href="details.php?id=6">Bella</a></p>
         </div>
     </div>
 </main>
