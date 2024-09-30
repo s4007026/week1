@@ -3,6 +3,9 @@
 include('includes/db_connect.inc'); // Database connection
 include('includes/header.inc'); // Header content
 include('includes/nav.inc'); // Navigation content
+include 'index.html'; // or require 'index.html';
+?>
+
 ?>
 
 <main>
