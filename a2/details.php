@@ -16,14 +16,28 @@ if (isset($_GET['id'])) {
         $pet = $result->fetch_assoc();
         ?>
         <main>
-            <h1><?php echo htmlspecialchars($pet['petname']); ?>'s Details</h1>
-            <div class="pet-details">
-                <img src="images/<?php echo htmlspecialchars($pet['image']); ?>" alt="<?php echo htmlspecialchars($pet['caption']); ?>" class="pet-image">
-                <h2>Name: <?php echo htmlspecialchars($pet['petname']); ?></h2>
-                <p><strong>Type:</strong> <?php echo htmlspecialchars($pet['type']); ?></p>
-                <p><strong>Age:</strong> <?php echo htmlspecialchars($pet['age']); ?> months</p>
-                <p><strong>Description:</strong> <?php echo nl2br(htmlspecialchars($pet['description'])); ?></p>
-                <p><strong>Location:</strong> <?php echo htmlspecialchars($pet['location']); ?></p>
+            <div class="details-container">
+                <div class="pet-image">
+                    <img src="images/<?php echo htmlspecialchars($pet['image']); ?>" alt="<?php echo htmlspecialchars($pet['caption']); ?>">
+                </div>
+                <div class="pet-info">
+                    <div class="icon-group">
+                        <div class="icon">
+                            <img src="images/age.png" alt="Age Icon">
+                            <p><?php echo htmlspecialchars($pet['age']); ?> months</p>
+                        </div>
+                        <div class="icon">
+                            <img src="images/ipet.png" alt="Type Icon">
+                            <p><?php echo htmlspecialchars($pet['type']); ?></p>
+                        </div>
+                        <div class="icon">
+                            <img src="images/location.png" alt="Location Icon">
+                            <p><?php echo htmlspecialchars($pet['location']); ?></p>
+                        </div>
+                    </div>
+                    <h2><?php echo htmlspecialchars($pet['petname']); ?></h2>
+                    <p class="description"><?php echo nl2br(htmlspecialchars($pet['description'])); ?></p>
+                </div>
             </div>
             <div class="back-to-gallery">
                 <a href="gallery.php">← Back to Gallery</a>
