@@ -49,11 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<main class="add">
+<main>
     <h2>Add a Pet</h2>
     <p>You can add a new pet here.</p>
     
-    <form action="add_pet.php" method="post" enctype="multipart/form-data">
+    <form action="" method="post" enctype="multipart/form-data">
         <label for="pet-name">Provide a name for the pet *</label>
         <input type="text" id="pet-name" name="pet-name" required>
 
