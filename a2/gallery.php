@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- Added lang attribute to declare the language of the document -->
+<head>
+    <meta charset="UTF-8"> <!-- Declaring character encoding -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Meta tag for responsiveness -->
+    <title>Gallery</title> <!-- Added a title element -->
+</head>
+<body>
+
 <?php
 include 'includes/header.inc';  // Header section including DOCTYPE, head, and start of body
 include 'includes/nav.inc';     // Navigation section
@@ -80,3 +89,6 @@ include 'includes/nav.inc';     // Navigation section
 <?php
 include 'includes/footer.inc';  // Footer section with closing body and HTML tags
 ?>
+
+</body>
+</html>

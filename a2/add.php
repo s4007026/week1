@@ -1,8 +1,17 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- Fix: Added lang attribute for language declaration -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Pet</title>
+</head>
+<body>
+
 <?php
-// Database connection
-include 'includes/header.inc';  // Header section including DOCTYPE, head, and start of body
-include 'includes/nav.inc';     // Navigation section
-include 'includes/db_connect.inc';  // Database connection
+// PHP code should always be inside <?php ?> tags without mixing directly into HTML
+include 'includes/header.inc';  // Including header
+include 'includes/nav.inc';     // Including navigation
+include 'includes/db_connect.inc';  // Including DB connection
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -53,7 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <h2>Add a Pet</h2>
     <p>You can add a new pet here.</p>
     
-    <form action="" method="post" enctype="multipart/form-data">
+    <!-- Fix the form action to handle PHP_SELF correctly and remove validator issues -->
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
         <label for="pet-name">Provide a name for the pet *</label>
         <input type="text" id="pet-name" name="pet-name" required>
 
@@ -88,5 +98,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </main>
 
 <?php
-include 'includes/footer.inc';  // Footer section with closing body and HTML tags
+// Footer include
+include 'includes/footer.inc';  // Including footer
 ?>
+
+</body>
+</html>

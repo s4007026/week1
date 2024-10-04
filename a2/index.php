@@ -1,5 +1,14 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- Added lang attribute -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pets Victoria - Pet Adoption</title> <!-- Added a title tag -->
+    <link rel="stylesheet" href="styles.css"> <!-- Example of linking stylesheets -->
+</head>
+<body>
+
 <?php
-include 'includes/header.inc';  // Header section including DOCTYPE, head, and start of body
 include 'includes/nav.inc';     // Navigation section
 ?>
 
@@ -12,3 +21,6 @@ include 'includes/nav.inc';     // Navigation section
 <?php
 include 'includes/footer.inc';  // Footer section with closing body and HTML tags
 ?>
+
+</body>
+</html>
