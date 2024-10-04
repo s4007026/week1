@@ -8,7 +8,6 @@
 <body>
 
 <?php
-// PHP code should always be inside <?php ?> tags without mixing directly into HTML
 include 'includes/header.inc';  // Including header
 include 'includes/nav.inc';     // Including navigation
 include 'includes/db_connect.inc';  // Including DB connection
