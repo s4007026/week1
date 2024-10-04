@@ -337,18 +337,21 @@ body {
 .icon-group {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 20px;
+    gap: 20px; /* Adds space between each icon container */
+    flex-wrap: nowrap; /* Prevents icons from wrapping onto a new line */
+    width: 100%; /* Ensures the group takes the full width of the container */
 }
 
 .icon {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row; /* Ensures icon and text are side by side */
+    align-items: center; /* Vertically aligns icon and text */
 }
 
 .icon img {
     width: 30px;
     height: 30px;
+    margin-right: 10px;
 }
 
 .icon p {
@@ -358,14 +361,14 @@ body {
 }
 
 h2 {
-    font-size: 24px;
+    font-size: 240px;
     font-weight: bold;
-    color: #008080;
+    color: #808080;
     margin: 10px 0;
 }
 
-.description {
-    font-size: 16px;
+.pet-info p {
+    font-size: 50px;
     color: #555;
     line-height: 1.5;
 }

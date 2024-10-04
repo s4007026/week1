@@ -16,33 +16,34 @@ if (isset($_GET['id'])) {
         $pet = $result->fetch_assoc();
         ?>
         <main>
-            <div class="details-container">
-                <div class="pet-image">
+            <div 
+                <div>
                     <img src="images/<?php echo htmlspecialchars($pet['image']); ?>" alt="<?php echo htmlspecialchars($pet['caption']); ?>">
                 </div>
-                <div class="pet-info">
-                    <div class="icon-group">
-                        <div class="icon">
+                <div 
+                    <div>
+                        <div>
                             <img src="images/age.png" alt="Age Icon">
                             <p><?php echo htmlspecialchars($pet['age']); ?> months</p>
                         </div>
-                        <div class="icon">
+                        <div 
                             <img src="images/ipet.png" alt="Type Icon">
                             <p><?php echo htmlspecialchars($pet['type']); ?></p>
                         </div>
-                        <div class="icon">
+                        <div 
                             <img src="images/location.png" alt="Location Icon">
                             <p><?php echo htmlspecialchars($pet['location']); ?></p>
                         </div>
                     </div>
                     <h2><?php echo htmlspecialchars($pet['petname']); ?></h2>
-                    <p class="description"><?php echo nl2br(htmlspecialchars($pet['description'])); ?></p>
+                    <p><?php echo nl2br(htmlspecialchars($pet['description'])); ?></p>
                 </div>
             </div>
             <div class="back-to-gallery">
                 <a href="gallery.php">← Back to Gallery</a>
             </div>
         </main>
+        
         <?php
     } else {
         echo "<p>Pet not found.</p>";
