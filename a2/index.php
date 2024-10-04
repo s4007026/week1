@@ -9,6 +9,7 @@
 <body>
 
 <?php
+include 'includes/header.inc';
 include 'includes/nav.inc';     // Navigation section
 ?>
 
