@@ -16,21 +16,21 @@ if (isset($_GET['id'])) {
         $pet = $result->fetch_assoc();
         ?>
         <main>
-            <div 
-                <div>
+            <div class="details-container">
+                <div class="pet-image">
                     <img src="images/<?php echo htmlspecialchars($pet['image']); ?>" alt="<?php echo htmlspecialchars($pet['caption']); ?>">
                 </div>
-                <div 
-                    <div>
-                        <div>
+                <div class="pet-info">
+                    <div class="icon-group">
+                        <div class="icon">
                             <img src="images/age.png" alt="Age Icon">
                             <p><?php echo htmlspecialchars($pet['age']); ?> months</p>
                         </div>
-                        <div 
+                        <div class="icon">
                             <img src="images/ipet.png" alt="Type Icon">
                             <p><?php echo htmlspecialchars($pet['type']); ?></p>
                         </div>
-                        <div 
+                        <div class="icon">
                             <img src="images/location.png" alt="Location Icon">
                             <p><?php echo htmlspecialchars($pet['location']); ?></p>
                         </div>

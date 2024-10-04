@@ -386,3 +386,15 @@ h2 {
 .back-to-gallery a:hover {
     text-decoration: underline;
 }
+
+main #details {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.description {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
