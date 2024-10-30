@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Validate form inputs
     if (empty($username)) {
-        $usernameErr = 'Name is required.';
+        $usernameErr = 'Username is required.';
     }
     if (empty($password)) {
         $passwordErr = 'Password is required.';
@@ -43,9 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
     <?php include('includes/header.inc'); ?> <!-- Include header -->
     <link rel="stylesheet" href="css/style.css"> <!-- Custom CSS -->
 </head>
@@ -60,17 +64,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <!-- Registration Form -->
         <form action="register.php" method="POST" class="register-form">
-            <!-- Name Input -->
+            <!-- Username Input -->
             <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" username="name" id="name" class="form-control" value="<?php echo htmlspecialchars($username); ?>">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" class="form-control" value="<?php echo htmlspecialchars($username); ?>">
                 <span class="text-danger"><?php echo $usernameErr; ?></span>
             </div>
             
             <!-- Password Input -->
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" username="password" id="password" class="form-control">
+                <input type="password" name="password" id="password" class="form-control">
                 <span class="text-danger"><?php echo $passwordErr; ?></span>
             </div>
 

@@ -6,12 +6,12 @@ session_start();
 include('includes/db_connect.inc');
 
 // Check if 'id' parameter is set in the URL
-if (!isset($_GET['id'])) {
+if (!isset($_GET['petid'])) {
     echo "<script>alert('No pet ID provided.'); window.location.href='pets.php';</script>";
     exit();
 }
 
-$pet_id = intval($_GET['id']); // Ensure ID is an integer
+$pet_id = intval($_GET['petid']); // Ensure ID is an integer
 
 // Fetch pet details from the database
 $stmt = $conn->prepare("SELECT petid, petname, description, type, age, image, userID FROM pets WHERE petid = ?");
@@ -33,7 +33,6 @@ $stmt->close();
 <html lang="en">
 <head>
     <?php include('includes/header.inc'); ?> <!-- Include header -->
-    <link rel="stylesheet" href="css/style.css"> <!-- Custom CSS -->
 </head>
 <body>
 
@@ -42,12 +41,12 @@ $stmt->close();
 
     <!-- Main Content -->
     <div class="container mt-5">
-        <h2 class="text-center"><?php echo htmlspecialchars($pet['name']); ?></h2>
+        <h2 class="text-center"><?php echo htmlspecialchars($pet['petname']); ?></h2>
 
         <div class="details-container">
             <!-- Pet Image -->
             <div class="pet-image">
-                <img src="images/<?php echo htmlspecialchars($pet['image']); ?>" alt="<?php echo htmlspecialchars($pet['name']); ?>" class="img-fluid rounded">
+                <img src="images/<?php echo htmlspecialchars($pet['image']); ?>" alt="<?php echo htmlspecialchars($pet['petname']); ?>" class="img-fluid rounded">
             </div>
 
             <!-- Pet Info -->

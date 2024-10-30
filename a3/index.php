@@ -5,7 +5,7 @@ session_start();
 // Include database connection
 include('includes/db_connect.inc');
 
-// Fetch the last 4 added pets for the carousel
+// Fetch the last 4 entries from the pets table
 $query = "SELECT image, petname FROM pets ORDER BY petid DESC LIMIT 4";
 $result = $conn->query($query);
 ?>
@@ -13,7 +13,13 @@ $result = $conn->query($query);
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pets Victoria - Welcome to Pet Adoption</title>
     <?php include('includes/header.inc'); ?> <!-- Include header -->
+    <link rel="stylesheet" href="css/style.css"> <!-- Custom CSS -->
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -22,45 +28,74 @@ $result = $conn->query($query);
 
     <!-- Main Content -->
     <div class="container mt-5">
-        <h1 class="text-center">Welcome to Pets Victoria</h1>
-        <p class="text-center">Find your perfect pet today!</p>
+        <div class="row align-items-center">
+            <!-- Left Column for Carousel -->
+            <div class="col-md-5 d-flex justify-content-center">
+                <!-- Carousel Start -->
+                <div id="petCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false">
+                    <div class="carousel-inner">
+                        <?php
+                        // Check if there are pets to display in the carousel
+                        if ($result->num_rows > 0) {
+                            $active = 'active';
+                            while ($row = $result->fetch_assoc()) {
+                                $image = $row['image'];
+                                $petname = $row['petname'];
 
-        <!-- Image Carousel -->
-        <div id="petCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <?php
-                // Check if there are any pets to display
-                if ($result->num_rows > 0) {
-                    $active = true; // Flag for setting the first item as active
-                    while ($row = $result->fetch_assoc()) {
-                        $image = $row['image'];
-                        $name = $row['petname'];
-                        echo '<div class="carousel-item' . ($active ? ' active' : '') . '">';
-                        echo '<img src="images/' . htmlspecialchars($image) . '" class="d-block w-100" alt="' . htmlspecialchars($name) . '" style="height: 300px; object-fit: cover;">';
-                        echo '<div class="carousel-caption d-none d-md-block">';
-                        echo '<h5>' . htmlspecialchars($name) . '</h5>';
-                        echo '</div></div>';
-                        $active = false;
-                    }
-                } else {
-                    echo '<div class="carousel-item active">';
-                    echo '<img src="images/default.jpg" class="d-block w-100" alt="No pets available" style="height: 300px; object-fit: cover;">';
-                    echo '<div class="carousel-caption d-none d-md-block">';
-                    echo '<h5>No pets available</h5>';
-                    echo '</div></div>';
-                }
-                ?>
+                                // Display each pet as a carousel item
+                                echo '
+                                <div class="carousel-item ' . $active . '">
+                                    <img src="images/' . htmlspecialchars($image) . '" class="d-block w-100" alt="' . htmlspecialchars($petname) . '" style="max-height: 400px; object-fit: cover;">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5>' . htmlspecialchars($petname) . '</h5>
+                                    </div>
+                                </div>';
+                                $active = ''; // Only the first item should be active
+                            }
+                        } else {
+                            echo '<div class="carousel-item active">
+                                    <img src="images/default.jpg" class="d-block w-100" alt="No pets available" style="max-height: 400px; object-fit: cover;">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5>No Pets Available</h5>
+                                    </div>
+                                  </div>';
+                        }
+                        ?>
+                    </div>
+                </div>
+                <!-- Carousel End -->
             </div>
 
-            <!-- Carousel Controls -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#petCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#petCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+            <!-- Right Column for Heading and Subheading -->
+            <div class="col-md-7 text-center">
+                <main h1 >PETS VICTORIA</h1>
+                <main h2 >WELCOME TO PET ADOPTION</h2>
+            </div>
+        </div>
+
+        <!-- Search Form -->
+        <div class="row mt-5 justify-content-center">
+            <div class="col-md-8">
+                <form action="search.php" method="GET" class="d-flex">
+                    <input type="text" name="search" class="form-control me-2" placeholder="I am looking for..." aria-label="Search">
+                    <select name="type" class="form-select me-2">
+                        <option value="">Select your pet type</option>
+                        <option value="cat">Cat</option>
+                        <option value="dog">Dog</option>
+                    </select>
+                    <button type="submit" class="btn btn-success">Search</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Description Section -->
+        <div class="row mt-4">
+            <div class="col-md-12 text-center">
+                <h3>Discover Pets Victoria</h3>
+                <p class="mt-3">
+                    Pets Victoria is a dedicated pet adoption organization based in Victoria, Australia, focused on providing a safe and loving environment for pets in need. With a compassionate approach, Pets Victoria works tirelessly to rescue, rehabilitate, and rehome dogs, cats, and other animals. Their mission is to connect these deserving pets with caring individuals and families, creating lifelong bonds.
+                </p>
+            </div>
         </div>
     </div>
 

@@ -1,4 +1,4 @@
-<?php
+<?php 
 // Start session management
 session_start();
 
@@ -36,8 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (password_verify($password, $user['password'])) {
                 // Set session variables
                 $_SESSION['loggedin'] = true;
-                $_SESSION['userID'] = $username['userID'];
-                $_SESSION['username'] = $username['username'];
+                $_SESSION['userID'] = $user['userID']; // Fixed to assign the correct userID
+                $_SESSION['username'] = $user['username']; // Fixed to assign the correct username
 
                 // Redirect to the homepage
                 header('Location: index.php');
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <!-- Username Input -->
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" name="username" id="userID" class="form-control" value="<?php echo htmlspecialchars($username); ?>">
+                <input type="text" name="username" id="username" class="form-control" value="<?php echo htmlspecialchars($username); ?>">
                 <span class="text-danger"><?php echo $usernameErr; ?></span>
             </div>
             
