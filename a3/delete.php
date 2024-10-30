@@ -20,8 +20,8 @@ if (!isset($_GET['id'])) {
 $pet_id = intval($_GET['id']); // Ensure ID is an integer
 
 // Fetch pet details to confirm deletion
-$stmt = $conn->prepare("SELECT image, name FROM pets WHERE id = ? AND user_id = ?");
-$stmt->bind_param("ii", $pet_id, $_SESSION['user_id']);
+$stmt = $conn->prepare("SELECT image, petname FROM pets WHERE id = ? AND userID = ?");
+$stmt->bind_param("ii", $pet_id, $_SESSION['userID']);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -33,14 +33,14 @@ if ($result->num_rows == 0) {
 
 $pet = $result->fetch_assoc();
 $image = $pet['image'];
-$name = $pet['name'];
+$name = $pet['petname'];
 
 // Handle deletion confirmation
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['confirm_delete'])) {
         // Delete the pet record
-        $delete_stmt = $conn->prepare("DELETE FROM pets WHERE id = ? AND user_id = ?");
-        $delete_stmt->bind_param("ii", $pet_id, $_SESSION['user_id']);
+        $delete_stmt = $conn->prepare("DELETE FROM pets WHERE petid = ? AND userID = ?");
+        $delete_stmt->bind_param("ii", $pet_id, $_SESSION['userID']);
         
         if ($delete_stmt->execute()) {
             // Remove the pet image from the server

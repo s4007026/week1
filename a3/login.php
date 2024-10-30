@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // If no errors, check user credentials
     if (empty($usernameErr) && empty($passwordErr)) {
-        $stmt = $conn->prepare("SELECT userid, username, password FROM users WHERE username = ?");
+        $stmt = $conn->prepare("SELECT userID, username, password FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (password_verify($password, $user['password'])) {
                 // Set session variables
                 $_SESSION['loggedin'] = true;
-                $_SESSION['userid'] = $username['userid'];
+                $_SESSION['userID'] = $username['userID'];
                 $_SESSION['username'] = $username['username'];
 
                 // Redirect to the homepage
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <!-- Username Input -->
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" name="username" id="username" class="form-control" value="<?php echo htmlspecialchars($username); ?>">
+                <input type="text" name="username" id="userID" class="form-control" value="<?php echo htmlspecialchars($username); ?>">
                 <span class="text-danger"><?php echo $usernameErr; ?></span>
             </div>
             
