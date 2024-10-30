@@ -6,26 +6,26 @@ session_start();
 include('includes/db_connect.inc');
 
 // Initialize variables for form handling
-$email = $password = '';
-$emailErr = $passwordErr = $loginErr = '';
+$username = $password = '';
+$usernameErr = $passwordErr = $loginErr = '';
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = trim($_POST['email']);
+    $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
     // Validate form inputs
-    if (empty($email)) {
-        $emailErr = 'Email is required.';
+    if (empty($username)) {
+        $usernameErr = 'Username is required.';
     }
     if (empty($password)) {
         $passwordErr = 'Password is required.';
     }
 
     // If no errors, check user credentials
-    if (empty($emailErr) && empty($passwordErr)) {
-        $stmt = $conn->prepare("SELECT id, name, password FROM users WHERE email = ?");
-        $stmt->bind_param("s", $email);
+    if (empty($usernameErr) && empty($passwordErr)) {
+        $stmt = $conn->prepare("SELECT userid, username, password FROM users WHERE username = ?");
+        $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -36,17 +36,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (password_verify($password, $user['password'])) {
                 // Set session variables
                 $_SESSION['loggedin'] = true;
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['user_name'] = $user['name'];
+                $_SESSION['userid'] = $username['userid'];
+                $_SESSION['username'] = $username['username'];
 
                 // Redirect to the homepage
                 header('Location: index.php');
                 exit();
             } else {
-                $loginErr = 'Incorrect email or password.';
+                $loginErr = 'Incorrect username or password.';
             }
         } else {
-            $loginErr = 'Incorrect email or password.';
+            $loginErr = 'Incorrect username or password.';
         }
 
         $stmt->close();
@@ -57,6 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
     <?php include('includes/header.inc'); ?> <!-- Include header -->
     <link rel="stylesheet" href="css/style.css"> <!-- Custom CSS -->
 </head>
@@ -71,11 +74,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <!-- Login Form -->
         <form action="login.php" method="POST" class="login-form">
-            <!-- Email Input -->
+            <!-- Username Input -->
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" class="form-control" value="<?php echo htmlspecialchars($email); ?>">
-                <span class="text-danger"><?php echo $emailErr; ?></span>
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" class="form-control" value="<?php echo htmlspecialchars($username); ?>">
+                <span class="text-danger"><?php echo $usernameErr; ?></span>
             </div>
             
             <!-- Password Input -->

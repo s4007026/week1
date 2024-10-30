@@ -12,18 +12,18 @@ if (!isset($_SESSION['loggedin'])) {
 }
 
 // Initialize variables for form handling
-$name = $description = $type = $age = $image = '';
-$nameErr = $descriptionErr = $typeErr = $ageErr = $imageErr = '';
+$petname = $description = $type = $age = $image = '';
+$petnameErr = $descriptionErr = $typeErr = $ageErr = $imageErr = '';
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name = trim($_POST['name']);
+    $petname = trim($_POST['petname']);
     $description = trim($_POST['description']);
     $type = trim($_POST['type']);
     $age = trim($_POST['age']);
     
     // Validate form inputs
-    if (empty($name)) $nameErr = 'Pet name is required.';
+    if (empty($petname)) $petnameErr = 'Pet name is required.';
     if (empty($description)) $descriptionErr = 'Description is required.';
     if (empty($type)) $typeErr = 'Pet type is required.';
     if (empty($age) || !is_numeric($age) || $age <= 0) $ageErr = 'Valid age is required.';

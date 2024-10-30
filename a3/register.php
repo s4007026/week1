@@ -6,66 +6,43 @@ session_start();
 include('includes/db_connect.inc');
 
 // Initialize variables for form handling
-$name = $email = $password = $confirm_password = '';
-$nameErr = $emailErr = $passwordErr = $confirm_passwordErr = $registerErr = '';
+$username = $password = '';
+$usernameErr = $passwordErr = $registerErr = '';
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name = trim($_POST['name']);
-    $email = trim($_POST['email']);
+    $username = trim($_POST['username']);
     $password = trim($_POST['password']);
-    $confirm_password = trim($_POST['confirm_password']);
 
     // Validate form inputs
-    if (empty($name)) {
-        $nameErr = 'Name is required.';
-    }
-    if (empty($email)) {
-        $emailErr = 'Email is required.';
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $emailErr = 'Invalid email format.';
+    if (empty($username)) {
+        $usernameErr = 'Name is required.';
     }
     if (empty($password)) {
         $passwordErr = 'Password is required.';
     } elseif (strlen($password) < 6) {
         $passwordErr = 'Password must be at least 6 characters long.';
     }
-    if (empty($confirm_password)) {
-        $confirm_passwordErr = 'Confirm password is required.';
-    } elseif ($password !== $confirm_password) {
-        $confirm_passwordErr = 'Passwords do not match.';
-    }
 
-    // If no errors, check if email already exists and register user
-    if (empty($nameErr) && empty($emailErr) && empty($passwordErr) && empty($confirm_passwordErr)) {
-        // Check if email already exists
-        $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $stmt->store_result();
+    // If no errors, register user
+    if (empty($usernameErr) && empty($passwordErr)) {
+        // Hash the password
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        if ($stmt->num_rows > 0) {
-            $registerErr = 'Email is already registered.';
+        // Insert new user into the database
+        $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+        $stmt->bind_param("ss", $username, $hashed_password);
+
+        if ($stmt->execute()) {
+            echo "<script>alert('Registration successful! You can now log in.'); window.location.href='login.php';</script>";
         } else {
-            // Hash the password
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-            // Insert new user into the database
-            $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $name, $email, $hashed_password);
-
-            if ($stmt->execute()) {
-                echo "<script>alert('Registration successful! You can now log in.'); window.location.href='login.php';</script>";
-            } else {
-                $registerErr = 'Error during registration. Please try again.';
-            }
+            $registerErr = 'Error during registration. Please try again.';
         }
 
         $stmt->close();
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,29 +63,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <!-- Name Input -->
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" name="name" id="name" class="form-control" value="<?php echo htmlspecialchars($name); ?>">
-                <span class="text-danger"><?php echo $nameErr; ?></span>
-            </div>
-
-            <!-- Email Input -->
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" class="form-control" value="<?php echo htmlspecialchars($email); ?>">
-                <span class="text-danger"><?php echo $emailErr; ?></span>
+                <input type="text" username="name" id="name" class="form-control" value="<?php echo htmlspecialchars($username); ?>">
+                <span class="text-danger"><?php echo $usernameErr; ?></span>
             </div>
             
             <!-- Password Input -->
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password" class="form-control">
+                <input type="password" username="password" id="password" class="form-control">
                 <span class="text-danger"><?php echo $passwordErr; ?></span>
-            </div>
-
-            <!-- Confirm Password Input -->
-            <div class="form-group">
-                <label for="confirm_password">Confirm Password</label>
-                <input type="password" name="confirm_password" id="confirm_password" class="form-control">
-                <span class="text-danger"><?php echo $confirm_passwordErr; ?></span>
             </div>
 
             <!-- Error Message for Registration -->
