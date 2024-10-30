@@ -3,7 +3,7 @@
 session_start();
 
 // Include database connection
-include('db_connect.inc');
+include('includes/db_connect.inc');
 
 // Check if the user is logged in
 if (!isset($_SESSION['loggedin'])) {
@@ -67,13 +67,13 @@ $stmt->close();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include('header.inc'); ?> <!-- Include header -->
+    <?php include('includes/header.inc'); ?> <!-- Include header -->
     <link rel="stylesheet" href="style.css"> <!-- Custom CSS -->
 </head>
 <body>
 
     <!-- Navbar -->
-    <?php include('nav.inc'); ?> <!-- Include navigation -->
+    <?php include('includes/nav.inc'); ?> <!-- Include navigation -->
 
     <!-- Main Content -->
     <div class="container mt-5">
@@ -91,7 +91,7 @@ $stmt->close();
     </div>
 
     <!-- Footer -->
-    <?php include('footer.inc'); ?> <!-- Include footer -->
+    <?php include('includes/footer.inc'); ?> <!-- Include footer -->
 
     <!-- Bootstrap JS from CDN -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
