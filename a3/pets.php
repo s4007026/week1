@@ -6,7 +6,7 @@ session_start();
 include('includes/db_connect.inc');
 
 // Fetch all pets from the database
-$query = "SELECT id, name, type, age, image, user_id FROM pets";
+$query = "SELECT petid, petname, type, age, image, username FROM pets";
 $result = $conn->query($query);
 ?>
 

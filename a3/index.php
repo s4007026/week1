@@ -35,7 +35,7 @@ $result = $conn->query($query);
                     $active = true; // Flag for setting the first item as active
                     while ($row = $result->fetch_assoc()) {
                         $image = $row['image'];
-                        $name = $row['name'];
+                        $name = $row['petname'];
                         echo '<div class="carousel-item' . ($active ? ' active' : '') . '">';
                         echo '<img src="images/' . htmlspecialchars($image) . '" class="d-block w-100" alt="' . htmlspecialchars($name) . '" style="height: 300px; object-fit: cover;">';
                         echo '<div class="carousel-caption d-none d-md-block">';

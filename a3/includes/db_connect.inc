@@ -4,8 +4,8 @@ if (strstr($_SERVER['SERVER_NAME'], 'localhost')) {
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $dbname = "petsvictoria";
-    $imagePath="C:\xampp\htdocs\wp\a2\images";
+    $dbname = "petsvic";
+    $imagePath="C:\xampp\htdocs\wp\a3\images";
 } 
 
   else {

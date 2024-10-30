@@ -84,7 +84,7 @@ $stmt->close();
         </div>
 
         <!-- Delete Confirmation Form -->
-        <form action="delete.php?id=<?php echo $pet_id; ?>" method="POST" class="text-center">
+        <form action="delete.php?id=<?php echo $petid; ?>" method="POST" class="text-center">
             <button type="submit" name="confirm_delete" class="btn btn-danger">Yes, Delete</button>
             <a href="pets.php" class="btn btn-secondary">Cancel</a>
         </form>
