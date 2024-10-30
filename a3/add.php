@@ -49,9 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // If no errors, insert into database
-    if (empty($nameErr) && empty($descriptionErr) && empty($typeErr) && empty($ageErr) && empty($imageErr)) {
-        $stmt = $conn->prepare("INSERT INTO pets (name, description, type, age, image, user_id) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssisi", $name, $description, $type, $age, $image, $_SESSION['user_id']);
+    if (empty($petnameErr) && empty($descriptionErr) && empty($typeErr) && empty($ageErr) && empty($imageErr)) {
+        $stmt = $conn->prepare("INSERT INTO pets (petname, description, type, age, image, userID) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssisi", $petname, $description, $type, $age, $image, $_SESSION['userID']);
 
         if ($stmt->execute()) {
             echo "<script>alert('Pet added successfully!'); window.location.href='pets.php';</script>";
