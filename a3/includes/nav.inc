@@ -1,18 +1,20 @@
 <header>
     <nav>
+        <!-- Logo -->
         <img src="images/favicon.png" alt="Pets Victoria Logo" class="logo">
-        <div class="dropdown">
-            <button onclick="navDrop()" class="dropbtn">Select an Option</button>
-            <div id="Dropnav" class="dropdown-content">
-                <a href="index.php">Home</a>
-                <a href="pets.php">Pets</a>
-                <a href="add.php">Add More</a>
-                <a href="gallery.php">Gallery</a>
-            </div>
+
+        <!-- Navigation Links -->
+        <div>
+            <a href="index.php" class="active">Home</a>
+            <a href="pets.php">Pets</a>
+            <a href="gallery.php">Gallery</a>
+            <a href="register.php">Register</a>
+            <a href="login.php">Login</a>
         </div>
 
-        <form>
-            <input type="text" placeholder="Search...">
+        <!-- Search Form -->
+        <form action="search.php" method="GET">
+            <input type="text" name="search" placeholder="Search...">
             <button type="submit">🔍</button>
         </form>
     </nav>

@@ -6,7 +6,7 @@ session_start();
 include('includes/db_connect.inc');
 
 // Fetch the last 4 added pets for the carousel
-$query = "SELECT image, name FROM pets ORDER BY id DESC LIMIT 4";
+$query = "SELECT image, petname FROM pets ORDER BY petid DESC LIMIT 4";
 $result = $conn->query($query);
 ?>
 
