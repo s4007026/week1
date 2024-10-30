@@ -20,8 +20,8 @@ if (!isset($_GET['id'])) {
 $pet_id = intval($_GET['id']); // Ensure ID is an integer
 
 // Fetch pet details from the database to pre-fill the form
-$stmt = $conn->prepare("SELECT id, name, description, type, age, image, user_id FROM pets WHERE id = ? AND user_id = ?");
-$stmt->bind_param("ii", $pet_id, $_SESSION['user_id']);
+$stmt = $conn->prepare("SELECT petid, petname, description, type, age, image, userID FROM pets WHERE id = ? AND userID = ?");
+$stmt->bind_param("ii", $pet_id, $_SESSION['userID']);
 $stmt->execute();
 $result = $stmt->get_result();
 

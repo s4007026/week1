@@ -14,7 +14,7 @@ if (!isset($_GET['id'])) {
 $user_id = intval($_GET['id']); // Ensure ID is an integer
 
 // Fetch user details
-$user_stmt = $conn->prepare("SELECT name FROM users WHERE id = ?");
+$user_stmt = $conn->prepare("SELECT username FROM users WHERE id = ?");
 $user_stmt->bind_param("i", $user_id);
 $user_stmt->execute();
 $user_result = $user_stmt->get_result();
@@ -29,7 +29,7 @@ $user = $user_result->fetch_assoc();
 $user_name = $user['name'];
 
 // Fetch pets uploaded by the user
-$pets_stmt = $conn->prepare("SELECT id, name, type, age, image FROM pets WHERE user_id = ?");
+$pets_stmt = $conn->prepare("SELECT id, petname, type, age, image FROM pets WHERE user_id = ?");
 $pets_stmt->bind_param("i", $user_id);
 $pets_stmt->execute();
 $pets_result = $pets_stmt->get_result();
