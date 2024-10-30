@@ -21,7 +21,7 @@ $type_stmt->execute();
 $type_result = $type_stmt->get_result();
 
 // Prepare SQL query for filtering and searching
-$query = "SELECT id, name, type, image FROM pets WHERE 1=1";
+$query = "SELECT petid, petname, type, image FROM pets WHERE 1=1";
 if ($filter_type) {
     $query .= " AND type = ?";
 }

@@ -39,7 +39,7 @@ $pets_result = $pets_stmt->get_result();
 <html lang="en">
 <head>
     <?php include('includes/header.inc'); ?> <!-- Include header -->
-    <link rel="stylesheet" href="style.css"> <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css"> <!-- Custom CSS -->
 </head>
 <body>
 
