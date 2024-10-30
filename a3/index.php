@@ -1,12 +1,25 @@
+<?php
+// Start session management
+session_start();
+
+// Include database connection
+include('db_connect.inc');
+
+// Fetch the last 4 added pets for the carousel
+$query = "SELECT image, name FROM pets ORDER BY id DESC LIMIT 4";
+$result = $conn->query($query);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include('header.inc'); ?> <!-- Include header file -->
+    <?php include('header.inc'); ?> <!-- Include header -->
+    <link rel="stylesheet" href="style.css"> <!-- Custom CSS -->
 </head>
 <body>
 
     <!-- Navbar -->
-    <?php include('nav.inc'); ?> <!-- Include navigation file -->
+    <?php include('nav.inc'); ?> <!-- Include navigation -->
 
     <!-- Main Content -->
     <div class="container mt-5">
@@ -16,22 +29,28 @@
         <!-- Image Carousel -->
         <div id="petCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <!-- Image 1 -->
-                <div class="carousel-item active">
-                    <img src="images/cat1.jpeg" class="d-block w-100" alt="Cat 1" style="height: 300px; object-fit: cover;">
-                </div>
-                <!-- Image 2 -->
-                <div class="carousel-item">
-                    <img src="images/cat2.jpeg" class="d-block w-100" alt="Cat 2" style="height: 300px; object-fit: cover;">
-                </div>
-                <!-- Image 3 -->
-                <div class="carousel-item">
-                    <img src="images/cat3.jpeg" class="d-block w-100" alt="Cat 3" style="height: 300px; object-fit: cover;">
-                </div>
-                <!-- Image 4 -->
-                <div class="carousel-item">
-                    <img src="images/dog1.jpeg" class="d-block w-100" alt="Dog 1" style="height: 300px; object-fit: cover;">
-                </div>
+                <?php
+                // Check if there are any pets to display
+                if ($result->num_rows > 0) {
+                    $active = true; // Flag for setting the first item as active
+                    while ($row = $result->fetch_assoc()) {
+                        $image = $row['image'];
+                        $name = $row['name'];
+                        echo '<div class="carousel-item' . ($active ? ' active' : '') . '">';
+                        echo '<img src="images/' . htmlspecialchars($image) . '" class="d-block w-100" alt="' . htmlspecialchars($name) . '" style="height: 300px; object-fit: cover;">';
+                        echo '<div class="carousel-caption d-none d-md-block">';
+                        echo '<h5>' . htmlspecialchars($name) . '</h5>';
+                        echo '</div></div>';
+                        $active = false;
+                    }
+                } else {
+                    echo '<div class="carousel-item active">';
+                    echo '<img src="images/default.jpg" class="d-block w-100" alt="No pets available" style="height: 300px; object-fit: cover;">';
+                    echo '<div class="carousel-caption d-none d-md-block">';
+                    echo '<h5>No pets available</h5>';
+                    echo '</div></div>';
+                }
+                ?>
             </div>
 
             <!-- Carousel Controls -->
@@ -47,7 +66,7 @@
     </div>
 
     <!-- Footer -->
-    <?php include('footer.inc'); ?> <!-- Include footer file -->
+    <?php include('footer.inc'); ?> <!-- Include footer -->
 
     <!-- Bootstrap JS from CDN -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
