@@ -90,13 +90,13 @@ $result = $stmt->get_result();
                 <?php while ($row = $result->fetch_assoc()): ?>
                     <div class="pet-card">
                         <div class="img-container">
-                            <img src="images/<?php echo htmlspecialchars($row['image']); ?>" alt="<?php echo htmlspecialchars($row['name']); ?>">
+                            <img src="images/<?php echo htmlspecialchars($row['image']); ?>" alt="<?php echo htmlspecialchars($row['petname']); ?>">
                             <div class="overlay">
-                                <span><?php echo htmlspecialchars($row['name']); ?></span>
+                                <span><?php echo htmlspecialchars($row['petname']); ?></span>
                             </div>
                         </div>
                         <p><strong>Type:</strong> <?php echo htmlspecialchars($row['type']); ?></p>
-                        <a href="details.php?id=<?php echo $row['id']; ?>" class="btn btn-info">View Details</a>
+                        <a href="details.php?id=<?php echo $row['petid']; ?>" class="btn btn-info">View Details</a>
                     </div>
                 <?php endwhile; ?>
             <?php else: ?>

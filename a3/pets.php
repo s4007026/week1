@@ -6,13 +6,17 @@ session_start();
 include('includes/db_connect.inc');
 
 // Fetch all pets from the database
-$query = "SELECT petid, petname, type, age, image, username FROM pets";
+$query = "SELECT petid, petname, type, age, location, image FROM pets ORDER BY petid DESC";
 $result = $conn->query($query);
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pets</title>
     <?php include('includes/header.inc'); ?> <!-- Include header -->
     <link rel="stylesheet" href="css/style.css"> <!-- Custom CSS -->
 </head>
@@ -23,45 +27,44 @@ $result = $conn->query($query);
 
     <!-- Main Content -->
     <div class="container mt-5">
-        <h2 class="text-center">All Pets</h2>
+        <h2 class="text-center">Discover Pets Victoria</h2>
+        <p class="text-center">Find your perfect pet from our available listings below!</p>
 
-        <!-- Pets Table -->
-        <table class="table table-bordered mt-4">
-            <thead class="table-dark">
-                <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Age</th>
-                    <th>Image</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if ($result->num_rows > 0): ?>
-                    <?php while ($row = $result->fetch_assoc()): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($row['name']); ?></td>
-                            <td><?php echo htmlspecialchars($row['type']); ?></td>
-                            <td><?php echo htmlspecialchars($row['age']); ?> years</td>
-                            <td>
-                                <img src="images/<?php echo htmlspecialchars($row['image']); ?>" alt="<?php echo htmlspecialchars($row['name']); ?>" class="img-fluid" style="width: 100px; height: auto;">
-                            </td>
-                            <td>
-                                <a href="details.php?id=<?php echo $row['id']; ?>" class="btn btn-info btn-sm">View</a>
-                                <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $row['user_id']): ?>
-                                    <a href="edit.php?id=<?php echo $row['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
-                                    <a href="delete.php?id=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this pet?')">Delete</a>
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-                    <?php endwhile; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="5" class="text-center">No pets found.</td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+        <!-- Grid Layout for Pet Cards -->
+        <div class="row">
+            <?php
+            // Check if there are any pets to display
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $petId = $row['petid'];
+                    $name = $row['petname'];
+                    $type = $row['type'];
+                    $age = $row['age'];
+                    $location = $row['location'];
+                    $imagePath = $row['image'];
+
+                    // Display each pet as a card
+                    echo '
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="' . htmlspecialchars($imagePath) . '" class="card-img-top" alt="' . htmlspecialchars($name) . '" style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">' . htmlspecialchars($name) . '</h5>
+                                <p class="card-text">
+                                    Type: ' . htmlspecialchars($type) . '<br>
+                                    Age: ' . htmlspecialchars($age) . ' months<br>
+                                    Location: ' . htmlspecialchars($location) . '
+                                </p>
+                                <a href="details.php?id=' . $petId . '" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>';
+                }
+            } else {
+                echo '<p class="text-center">No pets available at the moment. Please check back later!</p>';
+            }
+            ?>
+        </div>
     </div>
 
     <!-- Footer -->

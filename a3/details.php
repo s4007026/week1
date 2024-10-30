@@ -14,7 +14,7 @@ if (!isset($_GET['id'])) {
 $pet_id = intval($_GET['id']); // Ensure ID is an integer
 
 // Fetch pet details from the database
-$stmt = $conn->prepare("SELECT id, petname, description, type, age, image, userID FROM pets WHERE id = ?");
+$stmt = $conn->prepare("SELECT petid, petname, description, type, age, image, userID FROM pets WHERE petid = ?");
 $stmt->bind_param("i", $pet_id);
 $stmt->execute();
 $result = $stmt->get_result();

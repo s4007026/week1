@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 }
 
 // Prepare SQL query for searching
-$query = "SELECT petid, petname, type, age, image FROM pets WHERE name LIKE ? OR description LIKE ? OR type LIKE ?";
+$query = "SELECT petid, petname, type, age, image FROM pets WHERE petname LIKE ? OR description LIKE ? OR type LIKE ?";
 $stmt = $conn->prepare($query);
 
 // Bind parameters and execute the query
@@ -63,14 +63,14 @@ $result = $stmt->get_result();
                     <tbody>
                         <?php while ($row = $result->fetch_assoc()): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($row['name']); ?></td>
+                                <td><?php echo htmlspecialchars($row['petname']); ?></td>
                                 <td><?php echo htmlspecialchars($row['type']); ?></td>
                                 <td><?php echo htmlspecialchars($row['age']); ?> years</td>
                                 <td>
-                                    <img src="images/<?php echo htmlspecialchars($row['image']); ?>" alt="<?php echo htmlspecialchars($row['name']); ?>" class="img-fluid" style="width: 100px; height: auto;">
+                                    <img src="images/<?php echo htmlspecialchars($row['image']); ?>" alt="<?php echo htmlspecialchars($row['petname']); ?>" class="img-fluid" style="width: 100px; height: auto;">
                                 </td>
                                 <td>
-                                    <a href="details.php?id=<?php echo $row['id']; ?>" class="btn btn-info btn-sm">View Details</a>
+                                    <a href="details.php?id=<?php echo $row['petid']; ?>" class="btn btn-info btn-sm">View Details</a>
                                 </td>
                             </tr>
                         <?php endwhile; ?>

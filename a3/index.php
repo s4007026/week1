@@ -14,7 +14,6 @@ $result = $conn->query($query);
 <html lang="en">
 <head>
     <?php include('includes/header.inc'); ?> <!-- Include header -->
-    <link rel="stylesheet" href="css/style.css"> <!-- Custom CSS -->
 </head>
 <body>
 
