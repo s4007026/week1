@@ -17,9 +17,6 @@ $result = $conn->query($query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pets Victoria - Welcome to Pet Adoption</title>
     <?php include('includes/header.inc'); ?> <!-- Include header -->
-    <link rel="stylesheet" href="css/style.css"> <!-- Custom CSS -->
-    <!-- Include Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -66,7 +63,7 @@ $result = $conn->query($query);
 
             <!-- Right Column for Heading and Subheading -->
             <div>
-                <h1>PETS VICTORIA</h1>
+                <h1 class="display-4 index_heading permanent-Marker">PETS VICTORIA</h1>
                 <h2>WELCOME TO PET ADOPTION</h2>
             </div>
         </div>

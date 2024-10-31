@@ -5,20 +5,27 @@ session_start();
 // Include database connection
 include('includes/db_connect.inc');
 
-// Fetch pet details from the database
-$stmt = $conn->prepare("SELECT petid, petname, description, type, age, image, username FROM pets WHERE petid = ?");
-$stmt->bind_param("i", $pet_id);
-$stmt->execute();
-$result = $stmt->get_result();
+// Check if the 'id' parameter is set and is numeric
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $petId = $_GET['id'];
 
-// Check if the pet exists
-if ($result->num_rows == 0) {
-    echo "<script>alert('Pet not found.'); window.location.href='pets.php';</script>";
+    $sql = "SELECT * FROM pets WHERE petid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $petId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Check if the pet was found
+    if ($result && $result->num_rows > 0) {
+        $pet = $result->fetch_assoc(); // Store the result in $pet for consistent naming
+    } else {
+        echo "<p>Pet not found.</p>";
+        exit();
+    }
+} else {
+    echo "<p>Invalid pet ID.</p>";
     exit();
 }
-
-$pet = $result->fetch_assoc();
-$stmt->close();
 ?>
 
 <!DOCTYPE html>
@@ -47,10 +54,12 @@ $stmt->close();
                 <p><strong>Description:</strong> <?php echo htmlspecialchars($pet['description']); ?></p>
                 <p><strong>Type:</strong> <?php echo htmlspecialchars($pet['type']); ?></p>
                 <p><strong>Age:</strong> <?php echo htmlspecialchars($pet['age']); ?> years</p>
+                <p><strong>Location:</strong> <?php echo htmlspecialchars($pet['location']); ?></p>
+                <p><strong>Caption:</strong> <?php echo htmlspecialchars($pet['caption']); ?></p>
             </div>
 
             <!-- Edit and Delete Options (Visible only to the owner) -->
-            <?php if (isset($_SESSION['userID']) && $_SESSION['userID'] == $pet['userID']): ?>
+            <?php if (isset($_SESSION['username']) && $_SESSION['username'] == $pet['username']): ?>
                 <div class="text-center mt-4">
                     <a href="edit.php?petid=<?php echo $pet['petid']; ?>" class="btn btn-primary">Edit Pet</a>
                     <a href="delete.php?petid=<?php echo $pet['petid']; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this pet?')">Delete Pet</a>
