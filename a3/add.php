@@ -12,8 +12,8 @@ if (!isset($_SESSION['loggedin'])) {
 }
 
 // Initialize variables for form handling
-$petname = $description = $type = $age = $location = $image = '';
-$petnameErr = $descriptionErr = $typeErr = $ageErr = $locationErr = $imageErr = '';
+$petname = $description = $type = $age = $location = $caption = $image = '';
+$petnameErr = $descriptionErr = $typeErr = $ageErr = $locationErr = $captionErr = $imageErr = '';
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $type = trim($_POST['type']);
     $age = trim($_POST['age']);
     $location = trim($_POST['location']);
+    $caption = trim($_POST['caption']);
     
     // Validate form inputs
     if (empty($petname)) $petnameErr = 'Pet name is required.';
@@ -29,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($type)) $typeErr = 'Pet type is required.';
     if (empty($age) || !is_numeric($age) || $age <= 0) $ageErr = 'Valid age is required.';
     if (empty($location)) $locationErr = 'Location is required.';
+    if (empty($caption)) $captionErr = 'Caption is required.';
     
     // Handle file upload
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
@@ -51,9 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // If no errors, insert into database
-    if (empty($petnameErr) && empty($descriptionErr) && empty($typeErr) && empty($ageErr) && empty($locationErr) && empty($imageErr)) {
-        $stmt = $conn->prepare("INSERT INTO pets (petname, description, type, age, location, image) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssisss", $petname, $description, $type, $age, $location, $image);
+    if (empty($petnameErr) && empty($descriptionErr) && empty($typeErr) && empty($ageErr) && empty($locationErr) && empty($captionErr) && empty($imageErr)) {
+        $stmt = $conn->prepare("INSERT INTO pets (petname, description, type, age, location, caption, image) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssisss", $petname, $description, $type, $age, $location, $caption, $image);
 
         if ($stmt->execute()) {
             echo "<script>alert('Pet added successfully!'); window.location.href='pets.php';</script>";
@@ -115,6 +117,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="location">Location</label>
                 <input type="text" name="location" id="location" class="form-control" value="<?php echo htmlspecialchars($location); ?>">
                 <span class="text-danger"><?php echo $locationErr; ?></span>
+            </div>
+
+            <!-- Caption -->
+            <div class="form-group">
+                <label for="caption">Caption</label>
+                <input type="text" name="caption" id="caption" class="form-control" value="<?php echo htmlspecialchars($caption); ?>">
+                <span class="text-danger"><?php echo $captionErr; ?></span>
             </div>
             
             <!-- Image Upload -->
