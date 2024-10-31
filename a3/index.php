@@ -28,10 +28,9 @@ $result = $conn->query($query);
 
     <!-- Main Content -->
     <div class="container mt-5">
-        <div class="row align-items-center">
+        <div class="hero">
             <!-- Left Column for Carousel -->
-            <div class="col-md-5 d-flex justify-content-center">
-                <!-- Carousel Start -->
+            <div class="carousel">
                 <div id="petCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false">
                     <div class="carousel-inner">
                         <?php
@@ -45,7 +44,7 @@ $result = $conn->query($query);
                                 // Display each pet as a carousel item
                                 echo '
                                 <div class="carousel-item ' . $active . '">
-                                    <img src="images/' . htmlspecialchars($image) . '" class="d-block w-100" alt="' . htmlspecialchars($petname) . '" style="max-height: 400px; object-fit: cover;">
+                                    <img src="images/' . htmlspecialchars($image) . '" class="d-block w-100" alt="' . htmlspecialchars($petname) . '" style="max-height: 450px; object-fit: cover;">
                                     <div class="carousel-caption d-none d-md-block">
                                         <h5>' . htmlspecialchars($petname) . '</h5>
                                     </div>
@@ -54,7 +53,7 @@ $result = $conn->query($query);
                             }
                         } else {
                             echo '<div class="carousel-item active">
-                                    <img src="images/default.jpg" class="d-block w-100" alt="No pets available" style="max-height: 400px; object-fit: cover;">
+                                    <img src="images/default.jpg" class="d-block w-100" alt="No pets available" style="max-height: 450px; object-fit: cover;">
                                     <div class="carousel-caption d-none d-md-block">
                                         <h5>No Pets Available</h5>
                                     </div>
@@ -63,39 +62,34 @@ $result = $conn->query($query);
                         ?>
                     </div>
                 </div>
-                <!-- Carousel End -->
             </div>
 
             <!-- Right Column for Heading and Subheading -->
-            <div class="col-md-7 text-center">
-                <main h1 >PETS VICTORIA</h1>
-                <main h2 >WELCOME TO PET ADOPTION</h2>
+            <div>
+                <h1>PETS VICTORIA</h1>
+                <h2>WELCOME TO PET ADOPTION</h2>
             </div>
         </div>
 
         <!-- Search Form -->
-        <div class="row mt-5 justify-content-center">
-            <div class="col-md-8">
-                <form action="search.php" method="GET" class="d-flex">
-                    <input type="text" name="search" class="form-control me-2" placeholder="I am looking for..." aria-label="Search">
-                    <select name="type" class="form-select me-2">
-                        <option value="">Select your pet type</option>
-                        <option value="cat">Cat</option>
-                        <option value="dog">Dog</option>
-                    </select>
-                    <button type="submit" class="btn btn-success">Search</button>
-                </form>
-            </div>
+        <div class="search-form">
+            <form action="search.php" method="GET" class="d-flex">
+                <input type="text" name="search" class="form-control me-2" placeholder="I am looking for..." aria-label="Search">
+                <select name="type" class="form-select me-2">
+                    <option value="">Select your pet type</option>
+                    <option value="cat">Cat</option>
+                    <option value="dog">Dog</option>
+                </select>
+                <button type="submit" class="btn btn-success">Search</button>
+            </form>
         </div>
 
         <!-- Description Section -->
-        <div class="row mt-4">
-            <div class="col-md-12 text-center">
-                <h3>Discover Pets Victoria</h3>
-                <p class="mt-3">
-                    Pets Victoria is a dedicated pet adoption organization based in Victoria, Australia, focused on providing a safe and loving environment for pets in need. With a compassionate approach, Pets Victoria works tirelessly to rescue, rehabilitate, and rehome dogs, cats, and other animals. Their mission is to connect these deserving pets with caring individuals and families, creating lifelong bonds.
-                </p>
-            </div>
+        <div class="text-center mt-4">
+            <h3>Discover Pets Victoria</h3>
+            <p class="mt-3">
+                Pets Victoria is a dedicated pet adoption organization based in Victoria, Australia, focused on providing a safe and loving environment for pets in need. With a compassionate approach, Pets Victoria works tirelessly to rescue, rehabilitate, and rehome dogs, cats, and other animals. Their mission is to connect these deserving pets with caring individuals and families, creating lifelong bonds.
+            </p>
         </div>
     </div>
 

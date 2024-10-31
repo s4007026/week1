@@ -35,21 +35,24 @@ nav .logo {
     margin-right: 20px;
 }
 
+nav div {
+    display: flex;
+    gap: 15px; /* Space between links */
+}
+
 nav a {
     color: white;
-    margin: 0 15px;
     font-size: 18px;
     font-weight: bold;
     text-decoration: none;
-    transition: color 0.3s;
+    padding: 10px 15px;
+    transition: color 0.3s, background-color 0.3s;
 }
 
-nav a:hover {
-    color: #F0EAD6;
-}
-
-nav a.active {
-    text-decoration: underline;
+nav a.active, nav a:hover {
+    background-color: #F0EAD6; /* Light cream background for active/hover links */
+    color: #0A9396; /* Teal text color */
+    border-radius: 5px;
 }
 
 form {
