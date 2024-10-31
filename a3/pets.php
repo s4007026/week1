@@ -85,7 +85,5 @@ $result = $conn->query($query);
     <!-- Footer -->
     <?php include('includes/footer.inc'); ?> <!-- Include footer -->
 
-    <!-- Bootstrap JS from CDN -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
