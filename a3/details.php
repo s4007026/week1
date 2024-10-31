@@ -5,16 +5,8 @@ session_start();
 // Include database connection
 include('includes/db_connect.inc');
 
-// Check if 'id' parameter is set in the URL
-if (!isset($_GET['petid'])) {
-    echo "<script>alert('No pet ID provided.'); window.location.href='pets.php';</script>";
-    exit();
-}
-
-$pet_id = intval($_GET['petid']); // Ensure ID is an integer
-
 // Fetch pet details from the database
-$stmt = $conn->prepare("SELECT petid, petname, description, type, age, image, userID FROM pets WHERE petid = ?");
+$stmt = $conn->prepare("SELECT petid, petname, description, type, age, image, username FROM pets WHERE petid = ?");
 $stmt->bind_param("i", $pet_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -33,6 +25,7 @@ $stmt->close();
 <html lang="en">
 <head>
     <?php include('includes/header.inc'); ?> <!-- Include header -->
+    <link rel="stylesheet" href="css/style.css"> <!-- Custom CSS -->
 </head>
 <body>
 
@@ -59,8 +52,8 @@ $stmt->close();
             <!-- Edit and Delete Options (Visible only to the owner) -->
             <?php if (isset($_SESSION['userID']) && $_SESSION['userID'] == $pet['userID']): ?>
                 <div class="text-center mt-4">
-                    <a href="edit.php?id=<?php echo $pet['id']; ?>" class="btn btn-primary">Edit Pet</a>
-                    <a href="delete.php?id=<?php echo $pet['id']; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this pet?')">Delete Pet</a>
+                    <a href="edit.php?petid=<?php echo $pet['petid']; ?>" class="btn btn-primary">Edit Pet</a>
+                    <a href="delete.php?petid=<?php echo $pet['petid']; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this pet?')">Delete Pet</a>
                 </div>
             <?php endif; ?>
         </div>

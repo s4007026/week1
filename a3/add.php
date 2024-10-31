@@ -3,7 +3,7 @@
 session_start();
 
 // Include database connection and header
-include('includes/header.inc');
+include('includes/db_connect.inc');
 
 // Check if the user is logged in
 if (!isset($_SESSION['loggedin'])) {
@@ -12,8 +12,8 @@ if (!isset($_SESSION['loggedin'])) {
 }
 
 // Initialize variables for form handling
-$petname = $description = $type = $age = $image = '';
-$petnameErr = $descriptionErr = $typeErr = $ageErr = $imageErr = '';
+$petname = $description = $type = $age = $location = $image = '';
+$petnameErr = $descriptionErr = $typeErr = $ageErr = $locationErr = $imageErr = '';
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -21,15 +21,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $description = trim($_POST['description']);
     $type = trim($_POST['type']);
     $age = trim($_POST['age']);
+    $location = trim($_POST['location']);
     
     // Validate form inputs
     if (empty($petname)) $petnameErr = 'Pet name is required.';
     if (empty($description)) $descriptionErr = 'Description is required.';
     if (empty($type)) $typeErr = 'Pet type is required.';
     if (empty($age) || !is_numeric($age) || $age <= 0) $ageErr = 'Valid age is required.';
+    if (empty($location)) $locationErr = 'Location is required.';
     
     // Handle file upload
-    if ($_FILES['image']['error'] == 0) {
+    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $target_dir = "images/";
         $target_file = $target_dir . basename($_FILES["image"]["name"]);
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -49,9 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // If no errors, insert into database
-    if (empty($petnameErr) && empty($descriptionErr) && empty($typeErr) && empty($ageErr) && empty($imageErr)) {
-        $stmt = $conn->prepare("INSERT INTO pets (petname, description, type, age, image, userID) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssisi", $petname, $description, $type, $age, $image, $_SESSION['userID']);
+    if (empty($petnameErr) && empty($descriptionErr) && empty($typeErr) && empty($ageErr) && empty($locationErr) && empty($imageErr)) {
+        $stmt = $conn->prepare("INSERT INTO pets (petname, description, type, age, location, image) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssisss", $petname, $description, $type, $age, $location, $image);
 
         if ($stmt->execute()) {
             echo "<script>alert('Pet added successfully!'); window.location.href='pets.php';</script>";
@@ -82,9 +84,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <form action="add.php" method="POST" enctype="multipart/form-data" class="add-form">
             <!-- Pet Name -->
             <div class="form-group">
-                <label for="name">Pet Name</label>
-                <input type="text" name="name" id="name" class="form-control" value="<?php echo htmlspecialchars($name); ?>">
-                <span class="text-danger"><?php echo $nameErr; ?></span>
+                <label for="petname">Pet Name</label>
+                <input type="text" name="petname" id="petname" class="form-control" value="<?php echo htmlspecialchars($petname); ?>">
+                <span class="text-danger"><?php echo $petnameErr; ?></span>
             </div>
             
             <!-- Description -->
@@ -106,6 +108,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="age">Age (in years)</label>
                 <input type="number" name="age" id="age" class="form-control" value="<?php echo htmlspecialchars($age); ?>">
                 <span class="text-danger"><?php echo $ageErr; ?></span>
+            </div>
+
+            <!-- Location -->
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" name="location" id="location" class="form-control" value="<?php echo htmlspecialchars($location); ?>">
+                <span class="text-danger"><?php echo $locationErr; ?></span>
             </div>
             
             <!-- Image Upload -->
