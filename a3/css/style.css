@@ -263,6 +263,29 @@ tbody tr:hover {
     color: #0A9396;
 }
 
+/* Form Styling */
+.add-form .form-group {
+    display: flex;
+    flex-direction: column; /* Stack label and input vertically */
+    margin-bottom: 15px; /* Space between form fields */
+}
+
+.add-form label {
+    font-weight: bold;
+    margin-bottom: 5px; /* Space between label and input */
+}
+
+.add-form input[type="text"],
+.add-form input[type="number"],
+.add-form input[type="file"],
+.add-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+
 /* Footer */
 footer {
     background-color: #E57F3D;

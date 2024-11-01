@@ -11,17 +11,17 @@ if (!isset($_SESSION['loggedin'])) {
     exit();
 }
 
-// Check if 'id' parameter is set in the URL
-if (!isset($_GET['id'])) {
+// Check if 'petid' parameter is set in the URL
+if (!isset($_GET['petid']) || !is_numeric($_GET['petid'])) {
     echo "<script>alert('No pet ID provided.'); window.location.href='pets.php';</script>";
     exit();
 }
 
-$pet_id = intval($_GET['id']); // Ensure ID is an integer
+$pet_id = intval($_GET['petid']); // Ensure ID is an integer
 
 // Fetch pet details from the database to pre-fill the form
-$stmt = $conn->prepare("SELECT petid, petname, description, type, age, image, userID FROM pets WHERE id = ? AND userID = ?");
-$stmt->bind_param("ii", $pet_id, $_SESSION['userID']);
+$stmt = $conn->prepare("SELECT petid, petname, description, type, age, location, caption, image, username FROM pets WHERE petid = ? AND username = ?");
+$stmt->bind_param("is", $pet_id, $_SESSION['username']);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -35,25 +35,31 @@ $pet = $result->fetch_assoc();
 $stmt->close();
 
 // Initialize variables for form handling
-$name = $pet['name'];
+$petname = $pet['petname'];
 $description = $pet['description'];
 $type = $pet['type'];
 $age = $pet['age'];
+$location = $pet['location'];
+$caption = $pet['caption'];
 $image = $pet['image'];
-$nameErr = $descriptionErr = $typeErr = $ageErr = $imageErr = '';
+$petnameErr = $descriptionErr = $typeErr = $ageErr = $locationErr = $captionErr = $imageErr = '';
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name = trim($_POST['name']);
+    $petname = trim($_POST['petname']);
     $description = trim($_POST['description']);
     $type = trim($_POST['type']);
     $age = trim($_POST['age']);
+    $location = trim($_POST['location']);
+    $caption = trim($_POST['caption']);
 
     // Validate form inputs
-    if (empty($name)) $nameErr = 'Pet name is required.';
+    if (empty($petname)) $petnameErr = 'Pet name is required.';
     if (empty($description)) $descriptionErr = 'Description is required.';
     if (empty($type)) $typeErr = 'Pet type is required.';
     if (empty($age) || !is_numeric($age) || $age <= 0) $ageErr = 'Valid age is required.';
+    if (empty($location)) $locationErr = 'Location is required.';
+    if (empty($caption)) $captionErr = 'Caption is required.';
 
     // Handle file upload if a new image is uploaded
     if ($_FILES['image']['error'] == 0) {
@@ -78,18 +84,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // If no errors, update the pet details in the database
-    if (empty($nameErr) && empty($descriptionErr) && empty($typeErr) && empty($ageErr) && empty($imageErr)) {
-        $stmt = $conn->prepare("UPDATE pets SET name = ?, description = ?, type = ?, age = ?, image = ? WHERE id = ? AND user_id = ?");
-        $stmt->bind_param("sssisii", $name, $description, $type, $age, $image, $pet_id, $_SESSION['user_id']);
+if (empty($petnameErr) && empty($descriptionErr) && empty($typeErr) && empty($ageErr) && empty($locationErr) && empty($captionErr) && empty($imageErr)) {
+    $stmt = $conn->prepare("UPDATE pets SET petname = ?, description = ?, type = ?, age = ?, location = ?, caption = ?, image = ? WHERE petid = ? AND username = ?");
+    $stmt->bind_param("sssisssis", $petname, $description, $type, $age, $location, $caption, $image, $pet_id, $_SESSION['username']);
 
-        if ($stmt->execute()) {
-            echo "<script>alert('Pet updated successfully!'); window.location.href='details.php?id=$pet_id';</script>";
-        } else {
-            echo "<script>alert('Error updating pet. Please try again.');</script>";
-        }
-
-        $stmt->close();
+    if ($stmt->execute()) {
+        echo "<script>alert('Pet updated successfully!'); window.location.href='index.php';</script>";
+    } else {
+        echo "<script>alert('Error updating pet. Please try again.');</script>";
     }
+
+    $stmt->close();
+}
+
 }
 ?>
 
@@ -106,14 +113,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <!-- Main Content -->
     <div class="container mt-5">
-        <h2 class="text-center">Edit Pet: <?php echo htmlspecialchars($pet['name']); ?></h2>
+        <h2 class="text-center">Edit Pet: <?php echo htmlspecialchars($petname); ?></h2>
 
-        <form action="edit.php?id=<?php echo $pet_id; ?>" method="POST" enctype="multipart/form-data" class="edit-form">
+        <form action="edit.php?petid=<?php echo $pet_id; ?>" method="POST" enctype="multipart/form-data" class="edit-form">
             <!-- Pet Name -->
             <div class="form-group">
-                <label for="name">Pet Name</label>
-                <input type="text" name="name" id="name" class="form-control" value="<?php echo htmlspecialchars($name); ?>">
-                <span class="text-danger"><?php echo $nameErr; ?></span>
+                <label for="petname">Pet Name</label>
+                <input type="text" name="petname" id="petname" class="form-control" value="<?php echo htmlspecialchars($petname); ?>">
+                <span class="text-danger"><?php echo $petnameErr; ?></span>
             </div>
             
             <!-- Description -->
@@ -137,6 +144,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <span class="text-danger"><?php echo $ageErr; ?></span>
             </div>
 
+            <!-- Location -->
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" name="location" id="location" class="form-control" value="<?php echo htmlspecialchars($location); ?>">
+                <span class="text-danger"><?php echo $locationErr; ?></span>
+            </div>
+
+            <!-- Caption -->
+            <div class="form-group">
+                <label for="caption">Caption</label>
+                <input type="text" name="caption" id="caption" class="form-control" value="<?php echo htmlspecialchars($caption); ?>">
+                <span class="text-danger"><?php echo $captionErr; ?></span>
+            </div>
+
             <!-- Image Upload -->
             <div class="form-group">
                 <label for="image">Upload New Image (optional)</label>
@@ -147,13 +168,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <!-- Current Image Display -->
             <div class="form-group mt-3">
                 <label>Current Image:</label>
-                <img src="images/<?php echo htmlspecialchars($image); ?>" alt="<?php echo htmlspecialchars($name); ?>" class="img-fluid rounded mt-2">
+                <img src="images/<?php echo htmlspecialchars($image); ?>" alt="<?php echo htmlspecialchars($petname); ?>" class="img-fluid rounded mt-2">
             </div>
             
             <!-- Form Actions -->
             <div class="form-actions mt-4">
                 <button type="submit" class="btn btn-primary">Update Pet</button>
-                <a href="details.php?id=<?php echo $pet_id; ?>" class="btn btn-secondary">Cancel</a>
+                <a href="details.php?petid=<?php echo $pet_id; ?>" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>

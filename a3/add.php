@@ -71,8 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include('includes/header.inc'); ?> <!-- Include header -->
-    <link rel="stylesheet" href="css/style.css"> <!-- Custom CSS -->
+    <?php include('includes/header.inc'); ?>
 </head>
 <body>
 
