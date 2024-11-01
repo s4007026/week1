@@ -12,7 +12,7 @@ if (strstr($_SERVER['SERVER_NAME'], 'localhost')) {
     $servername = "talsprddb02.int.its.rmit.edu.au";
     $username = "s4007026";
     $password = "KkAkSummer13!!";
-    $dbname = "petsvictoria";
+    $dbname = "s4007026";
     $imagePath="/~s4007026/public_html/wp/a3/images";
 }
 
