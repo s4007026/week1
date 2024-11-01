@@ -11,17 +11,17 @@ if (!isset($_SESSION['loggedin'])) {
     exit();
 }
 
-// Check if the 'id' parameter is set in the URL
-if (!isset($_GET['id'])) {
+// Check if the 'petid' parameter is set in the URL
+if (!isset($_GET['petid']) || !is_numeric($_GET['petid'])) {
     echo "<script>alert('No pet ID provided.'); window.location.href='pets.php';</script>";
     exit();
 }
 
-$pet_id = intval($_GET['id']); // Ensure ID is an integer
+$pet_id = intval($_GET['petid']); // Ensure ID is an integer
 
-// Fetch pet details to confirm deletion
-$stmt = $conn->prepare("SELECT image, petname FROM pets WHERE id = ? AND userID = ?");
-$stmt->bind_param("ii", $pet_id, $_SESSION['userID']);
+// Fetch pet details to confirm deletion, ensuring the pet belongs to the logged-in user
+$stmt = $conn->prepare("SELECT image, petname FROM pets WHERE petid = ? AND username = ?");
+$stmt->bind_param("is", $pet_id, $_SESSION['username']);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -33,18 +33,18 @@ if ($result->num_rows == 0) {
 
 $pet = $result->fetch_assoc();
 $image = $pet['image'];
-$name = $pet['petname'];
+$petname = $pet['petname'];
 
 // Handle deletion confirmation
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['confirm_delete'])) {
         // Delete the pet record
-        $delete_stmt = $conn->prepare("DELETE FROM pets WHERE petid = ? AND userID = ?");
-        $delete_stmt->bind_param("ii", $pet_id, $_SESSION['userID']);
+        $delete_stmt = $conn->prepare("DELETE FROM pets WHERE petid = ? AND username = ?");
+        $delete_stmt->bind_param("is", $pet_id, $_SESSION['username']);
         
         if ($delete_stmt->execute()) {
             // Remove the pet image from the server
-            if (file_exists("images/" . $image)) {
+            if (!empty($image) && file_exists("images/" . $image)) {
                 unlink("images/" . $image);
             }
 
@@ -79,19 +79,18 @@ $stmt->close();
     <div class="container mt-5">
         <h2 class="text-center text-danger">Confirm Deletion</h2>
         <div class="alert alert-warning text-center">
-            <p>Are you sure you want to delete the pet named <strong><?php echo htmlspecialchars($name); ?></strong>?</p>
+            <p>Are you sure you want to delete the pet named <strong><?php echo htmlspecialchars($petname); ?></strong>?</p>
             <p>This action cannot be undone.</p>
         </div>
 
         <!-- Delete Confirmation Form -->
-        <form action="delete.php?id=<?php echo $petid; ?>" method="POST" class="text-center">
+        <form action="delete.php?petid=<?php echo $pet_id; ?>" method="POST" class="text-center">
             <button type="submit" name="confirm_delete" class="btn btn-danger">Yes, Delete</button>
             <a href="pets.php" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 
-    <!-- Footer -->
-    <?php include('includes/footer.inc'); ?> <!-- Include footer -->
+    <?php include('includes/footer.inc'); ?>
 
 </body>
 </html>

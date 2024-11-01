@@ -1,8 +1,7 @@
 <?php
-// Start session management
+
 session_start();
 
-// Include database connection
 include('includes/db_connect.inc');
 
 // Check if 'id' parameter is set in the URL (user ID)
@@ -11,7 +10,7 @@ if (!isset($_GET['id'])) {
     exit();
 }
 
-$user_id = intval($_GET['id']); // Ensure ID is an integer
+$user_id = intval($_GET['id']);
 
 // Fetch user details
 $user_stmt = $conn->prepare("SELECT username FROM users WHERE id = ?");
@@ -38,8 +37,7 @@ $pets_result = $pets_stmt->get_result();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include('includes/header.inc'); ?> <!-- Include header -->
-    <link rel="stylesheet" href="css/style.css"> <!-- Custom CSS -->
+    <?php include('includes/header.inc'); ?>
 </head>
 <body>
 
@@ -89,8 +87,7 @@ $pets_result = $pets_stmt->get_result();
         </div>
     </div>
 
-    <!-- Footer -->
-    <?php include('includes/footer.inc'); ?> <!-- Include footer -->
+    <?php include('includes/footer.inc'); ?>
 
 </body>
 </html>

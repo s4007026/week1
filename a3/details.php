@@ -1,11 +1,10 @@
 <?php
-// Start session management
+
 session_start();
 
-// Include database connection
 include('includes/db_connect.inc');
 
-// Check if the 'id' parameter is set and is numeric
+// Check if the 'id' parameter is set
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $petId = $_GET['id'];
 
@@ -31,8 +30,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include('includes/header.inc'); ?> <!-- Include header -->
-    <link rel="stylesheet" href="css/style.css"> <!-- Custom CSS -->
+    <?php include('includes/header.inc'); ?>
 </head>
 <body>
 
@@ -68,8 +66,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         </div>
     </div>
 
-    <!-- Footer -->
-    <?php include('includes/footer.inc'); ?> <!-- Include footer -->
+    <?php include('includes/footer.inc'); ?>
 
 </body>
 </html>

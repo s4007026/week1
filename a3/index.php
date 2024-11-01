@@ -1,8 +1,7 @@
 <?php
-// Start session management
+
 session_start();
 
-// Include database connection
 include('includes/db_connect.inc');
 
 // Fetch the last 4 entries from the pets table
@@ -16,12 +15,11 @@ $result = $conn->query($query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pets Victoria - Welcome to Pet Adoption</title>
-    <?php include('includes/header.inc'); ?> <!-- Include header -->
+    <?php include('includes/header.inc'); ?> 
 </head>
 <body>
 
-    <!-- Navbar -->
-    <?php include('includes/nav.inc'); ?> <!-- Include navigation -->
+    <?php include('includes/nav.inc'); ?>
 
     <!-- Main Content -->
     <div class="container mt-5">
@@ -90,8 +88,8 @@ $result = $conn->query($query);
         </div>
     </div>
 
-    <!-- Footer -->
-    <?php include('includes/footer.inc'); ?> <!-- Include footer -->
+    
+    <?php include('includes/footer.inc'); ?>
 
 </body>
 </html>

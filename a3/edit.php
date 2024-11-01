@@ -1,8 +1,7 @@
 <?php
-// Start session management
+
 session_start();
 
-// Include database connection
 include('includes/db_connect.inc');
 
 // Check if the user is logged in
@@ -103,13 +102,11 @@ if (empty($petnameErr) && empty($descriptionErr) && empty($typeErr) && empty($ag
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include('includes/header.inc'); ?> <!-- Include header -->
-    <link rel="stylesheet" href="css/style.css"> <!-- Custom CSS -->
+    <?php include('includes/header.inc'); ?>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <?php include('includes/nav.inc'); ?> <!-- Include navigation -->
+    <?php include('includes/nav.inc'); ?>
 
     <!-- Main Content -->
     <div class="container mt-5">
@@ -160,17 +157,11 @@ if (empty($petnameErr) && empty($descriptionErr) && empty($typeErr) && empty($ag
 
             <!-- Image Upload -->
             <div class="form-group">
-                <label for="image">Upload New Image (optional)</label>
+                <label for="image">Upload New Image</label>
                 <input type="file" name="image" id="image" class="form-control">
                 <span class="text-danger"><?php echo $imageErr; ?></span>
             </div>
 
-            <!-- Current Image Display -->
-            <div class="form-group mt-3">
-                <label>Current Image:</label>
-                <img src="images/<?php echo htmlspecialchars($image); ?>" alt="<?php echo htmlspecialchars($petname); ?>" class="img-fluid rounded mt-2">
-            </div>
-            
             <!-- Form Actions -->
             <div class="form-actions mt-4">
                 <button type="submit" class="btn btn-primary">Update Pet</button>
@@ -179,8 +170,7 @@ if (empty($petnameErr) && empty($descriptionErr) && empty($typeErr) && empty($ag
         </form>
     </div>
 
-    <!-- Footer -->
-    <?php include('includes/footer.inc'); ?> <!-- Include footer -->
+    <?php include('includes/footer.inc'); ?>
 
 </body>
 </html>

@@ -1,11 +1,9 @@
 <?php
-// Start session management
+
 session_start();
 
-// Include database connection
 include('includes/db_connect.inc');
 
-// Initialize variables
 $filter_type = '';
 $search = '';
 
@@ -49,13 +47,11 @@ $result = $stmt->get_result();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include('includes/header.inc'); ?> <!-- Include header -->
-    <link rel="stylesheet" href="style.css"> <!-- Custom CSS -->
+    <?php include('includes/header.inc'); ?>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <?php include('includes/nav.inc'); ?> <!-- Include navigation -->
+    <?php include('includes/nav.inc'); ?>
 
     <!-- Main Content -->
     <div class="container mt-5">
@@ -105,8 +101,7 @@ $result = $stmt->get_result();
         </div>
     </div>
 
-    <!-- Footer -->
-    <?php include('includes/footer.inc'); ?> <!-- Include footer -->
+    <?php include('includes/footer.inc'); ?>
 
 </body>
 </html>

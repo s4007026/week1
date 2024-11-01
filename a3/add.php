@@ -1,8 +1,8 @@
 <?php
-// Start session management
+
 session_start();
 
-// Include database connection and header
+
 include('includes/db_connect.inc');
 
 // Check if the user is logged in
@@ -23,7 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $age = trim($_POST['age']);
     $location = trim($_POST['location']);
     $caption = trim($_POST['caption']);
-    
+    $username = $_SESSION['username']; // Retrieve logged-in username from session
+
     // Validate form inputs
     if (empty($petname)) $petnameErr = 'Pet name is required.';
     if (empty($description)) $descriptionErr = 'Description is required.';
@@ -31,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($age) || !is_numeric($age) || $age <= 0) $ageErr = 'Valid age is required.';
     if (empty($location)) $locationErr = 'Location is required.';
     if (empty($caption)) $captionErr = 'Caption is required.';
-    
+
     // Handle file upload
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $target_dir = "images/";
@@ -54,8 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // If no errors, insert into database
     if (empty($petnameErr) && empty($descriptionErr) && empty($typeErr) && empty($ageErr) && empty($locationErr) && empty($captionErr) && empty($imageErr)) {
-        $stmt = $conn->prepare("INSERT INTO pets (petname, description, type, age, location, caption, image) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssisss", $petname, $description, $type, $age, $location, $caption, $image);
+        $stmt = $conn->prepare("INSERT INTO pets (petname, description, type, age, location, caption, image, username) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssisiss", $petname, $description, $type, $age, $location, $caption, $image, $username);
 
         if ($stmt->execute()) {
             echo "<script>alert('Pet added successfully!'); window.location.href='pets.php';</script>";
@@ -68,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,10 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
 
-    <!-- Navbar -->
-    <?php include('includes/nav.inc'); ?> <!-- Include navigation -->
+    <?php include('includes/nav.inc'); ?>
 
-    <!-- Main Content -->
     <div class="container mt-5">
         <h2 class="text-center">Add a New Pet</h2>
         
@@ -140,8 +140,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </form>
     </div>
 
-    <!-- Footer -->
-    <?php include('includes/footer.inc'); ?> <!-- Include footer -->
+
+    <?php include('includes/footer.inc'); ?>
 
 </body>
 </html>

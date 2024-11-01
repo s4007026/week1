@@ -1,8 +1,7 @@
 <?php 
-// Start session management
+
 session_start();
 
-// Include database connection
 include('includes/db_connect.inc');
 
 // Initialize variables for form handling
@@ -60,13 +59,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <?php include('includes/header.inc'); ?> <!-- Include header -->
-    <link rel="stylesheet" href="css/style.css"> <!-- Custom CSS -->
+    <?php include('includes/header.inc'); ?>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <?php include('includes/nav.inc'); ?> <!-- Include navigation -->
+    <?php include('includes/nav.inc'); ?>
 
     <!-- Main Content -->
     <div class="container mt-5">
@@ -101,8 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </form>
     </div>
 
-    <!-- Footer -->
-    <?php include('includes/footer.inc'); ?> <!-- Include footer -->
+    <?php include('includes/footer.inc'); ?>
 
 </body>
 </html>
