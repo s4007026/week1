@@ -1,20 +1,20 @@
 <?php
-
 session_start();
 
 include('includes/db_connect.inc');
 
-// Check if 'id' parameter is set in the URL (user ID)
-if (!isset($_GET['id'])) {
-    echo "<script>alert('No user ID provided.'); window.location.href='index.php';</script>";
+// Check if the user is logged in
+if (!isset($_SESSION['loggedin']) || !isset($_SESSION['username'])) {
+    header('Location: login.php');
     exit();
 }
 
-$user_id = intval($_GET['id']);
+// Retrieve the logged-in username
+$username = $_SESSION['username'];
 
-// Fetch user details
-$user_stmt = $conn->prepare("SELECT username FROM users WHERE id = ?");
-$user_stmt->bind_param("i", $user_id);
+// Fetch user details based on the username in the session
+$user_stmt = $conn->prepare("SELECT username FROM users WHERE username = ?");
+$user_stmt->bind_param("s", $username);
 $user_stmt->execute();
 $user_result = $user_stmt->get_result();
 
@@ -25,11 +25,11 @@ if ($user_result->num_rows == 0) {
 }
 
 $user = $user_result->fetch_assoc();
-$user_name = $user['name'];
+$user_name = $user['username'];
 
-// Fetch pets uploaded by the user
-$pets_stmt = $conn->prepare("SELECT id, petname, type, age, image FROM pets WHERE user_id = ?");
-$pets_stmt->bind_param("i", $user_id);
+// Fetch pets uploaded by this user
+$pets_stmt = $conn->prepare("SELECT petid, petname, type, age, image FROM pets WHERE username = ?");
+$pets_stmt->bind_param("s", $username);
 $pets_stmt->execute();
 $pets_result = $pets_stmt->get_result();
 ?>
@@ -41,8 +41,7 @@ $pets_result = $pets_stmt->get_result();
 </head>
 <body>
 
-    <!-- Navbar -->
-    <?php include('includes/nav.inc'); ?> <!-- Include navigation -->
+    <?php include('includes/nav.inc'); ?>
 
     <!-- Main Content -->
     <div class="container mt-5">
@@ -64,17 +63,17 @@ $pets_result = $pets_stmt->get_result();
                     <tbody>
                         <?php while ($row = $pets_result->fetch_assoc()): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($row['name']); ?></td>
+                                <td><?php echo htmlspecialchars($row['petname']); ?></td>
                                 <td><?php echo htmlspecialchars($row['type']); ?></td>
                                 <td><?php echo htmlspecialchars($row['age']); ?> years</td>
                                 <td>
-                                    <img src="images/<?php echo htmlspecialchars($row['image']); ?>" alt="<?php echo htmlspecialchars($row['name']); ?>" class="img-fluid" style="width: 100px; height: auto;">
+                                    <img src="images/<?php echo htmlspecialchars($row['image']); ?>" alt="<?php echo htmlspecialchars($row['petname']); ?>" class="img-fluid" style="width: 100px; height: auto;">
                                 </td>
                                 <td>
-                                    <a href="details.php?id=<?php echo $row['id']; ?>" class="btn btn-info btn-sm">View Details</a>
-                                    <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $user_id): ?>
-                                        <a href="edit.php?id=<?php echo $row['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
-                                        <a href="delete.php?id=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this pet?')">Delete</a>
+                                    <a href="details.php?petid=<?php echo $row['petid']; ?>" class="btn btn-info btn-sm">View Details</a>
+                                    <?php if ($username == $_SESSION['username']): ?>
+                                        <a href="edit.php?petid=<?php echo $row['petid']; ?>" class="btn btn-primary btn-sm">Edit</a>
+                                        <a href="delete.php?petid=<?php echo $row['petid']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this pet?')">Delete</a>
                                     <?php endif; ?>
                                 </td>
                             </tr>
@@ -82,7 +81,7 @@ $pets_result = $pets_stmt->get_result();
                     </tbody>
                 </table>
             <?php else: ?>
-                <p class="text-center">This user has not uploaded any pets.</p>
+                <p class="text-center">You have not uploaded any pets.</p>
             <?php endif; ?>
         </div>
     </div>
