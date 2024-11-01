@@ -13,7 +13,7 @@ if (strstr($_SERVER['SERVER_NAME'], 'localhost')) {
     $username = "s4007026";
     $password = "KkAkSummer13!!";
     $dbname = "petsvictoria";
-    $imagePath="/~s4007026/public_html/wp/a2/images";
+    $imagePath="/~s4007026/public_html/wp/a3/images";
 }
 
 
