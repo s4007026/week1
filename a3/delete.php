@@ -1,8 +1,7 @@
 <?php
-// Start session management
+
 session_start();
 
-// Include database connection
 include('includes/db_connect.inc');
 
 // Check if the user is logged in
@@ -11,13 +10,13 @@ if (!isset($_SESSION['loggedin'])) {
     exit();
 }
 
-// Check if the 'petid' parameter is set in the URL
+// Check if the 'petid' is set in the URL
 if (!isset($_GET['petid']) || !is_numeric($_GET['petid'])) {
     echo "<script>alert('No pet ID provided.'); window.location.href='pets.php';</script>";
     exit();
 }
 
-$pet_id = intval($_GET['petid']); // Ensure ID is an integer
+$pet_id = intval($_GET['petid']);
 
 // Fetch pet details to confirm deletion, ensuring the pet belongs to the logged-in user
 $stmt = $conn->prepare("SELECT image, petname FROM pets WHERE petid = ? AND username = ?");
@@ -35,7 +34,7 @@ $pet = $result->fetch_assoc();
 $image = $pet['image'];
 $petname = $pet['petname'];
 
-// Handle deletion confirmation
+// delete confirmation
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['confirm_delete'])) {
         // Delete the pet record
@@ -43,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $delete_stmt->bind_param("is", $pet_id, $_SESSION['username']);
         
         if ($delete_stmt->execute()) {
-            // Remove the pet image from the server
+            // Remove the image from server
             if (!empty($image) && file_exists("images/" . $image)) {
                 unlink("images/" . $image);
             }
@@ -55,8 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         $delete_stmt->close();
     } else {
-        // If deletion is canceled
-        header('Location: pets.php');
+        header('Location: index.php');
         exit();
     }
 }
@@ -67,13 +65,11 @@ $stmt->close();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include('includes/header.inc'); ?> <!-- Include header -->
-    <link rel="stylesheet" href="css/style.css"> <!-- Custom CSS -->
+    <?php include('includes/header.inc'); ?>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <?php include('includes/nav.inc'); ?> <!-- Include navigation -->
+    <?php include('includes/nav.inc'); ?>
 
     <!-- Main Content -->
     <div class="container mt-5">

@@ -13,12 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 }
 
-// Fetch distinct pet types for the dropdown
+// Fetch pet types for the dropdown
 $type_stmt = $conn->prepare("SELECT DISTINCT type FROM pets");
 $type_stmt->execute();
 $type_result = $type_stmt->get_result();
 
-// Prepare SQL query for filtering and searching
+// Prepare query for filtering and searching
 $query = "SELECT petid, petname, type, image FROM pets WHERE 1=1";
 if ($filter_type) {
     $query .= " AND type = ?";
@@ -29,7 +29,7 @@ if ($search) {
 
 $stmt = $conn->prepare($query);
 
-// Bind parameters based on filter and search
+// Bind parameters on filter and search
 if ($filter_type && $search) {
     $search_param = "%" . $search . "%";
     $stmt->bind_param("sss", $filter_type, $search_param, $search_param);

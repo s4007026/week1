@@ -10,13 +10,13 @@ if (!isset($_SESSION['loggedin'])) {
     exit();
 }
 
-// Check if 'petid' parameter is set in the URL
+// Check if 'petid' is set in the URL
 if (!isset($_GET['petid']) || !is_numeric($_GET['petid'])) {
     echo "<script>alert('No pet ID provided.'); window.location.href='pets.php';</script>";
     exit();
 }
 
-$pet_id = intval($_GET['petid']); // Ensure ID is an integer
+$pet_id = intval($_GET['petid']);
 
 // Fetch pet details from the database to pre-fill the form
 $stmt = $conn->prepare("SELECT petid, petname, description, type, age, location, caption, image, username FROM pets WHERE petid = ? AND username = ?");
@@ -33,7 +33,7 @@ if ($result->num_rows == 0) {
 $pet = $result->fetch_assoc();
 $stmt->close();
 
-// Initialize variables for form handling
+// Form handling
 $petname = $pet['petname'];
 $description = $pet['description'];
 $type = $pet['type'];

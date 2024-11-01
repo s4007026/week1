@@ -9,7 +9,6 @@ if (!isset($_SESSION['loggedin'])) {
     exit();
 }
 
-// Initialize variables for form handling
 $petname = $description = $type = $age = $location = $caption = $image = '';
 $petnameErr = $descriptionErr = $typeErr = $ageErr = $locationErr = $captionErr = $imageErr = '';
 
@@ -21,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $age = trim($_POST['age']);
     $location = trim($_POST['location']);
     $caption = trim($_POST['caption']);
-    $username = $_SESSION['username']; // Retrieve logged-in username from session
+    $username = $_SESSION['username'];
 
     // Validate form inputs
     if (empty($petname)) $petnameErr = 'Pet name is required.';

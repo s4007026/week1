@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 $query = "SELECT petid, petname, type, age, image FROM pets WHERE petname LIKE ? OR description LIKE ? OR type LIKE ?";
 $stmt = $conn->prepare($query);
 
-// Bind parameters and execute the query
+// Parameters n execute query
 $search_param = "%" . $search_term . "%";
 $stmt->bind_param("sss", $search_param, $search_param, $search_param);
 $stmt->execute();

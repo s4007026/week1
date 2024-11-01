@@ -4,7 +4,6 @@ session_start();
 
 include('includes/db_connect.inc');
 
-// Check if the 'id' parameter is set
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $petId = $_GET['id'];
 
@@ -16,7 +15,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
     // Check if the pet was found
     if ($result && $result->num_rows > 0) {
-        $pet = $result->fetch_assoc(); // Store the result in $pet for consistent naming
+        $pet = $result->fetch_assoc();
     } else {
         echo "<p>Pet not found.</p>";
         exit();
@@ -34,8 +33,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 </head>
 <body>
 
-    <!-- Navbar -->
-    <?php include('includes/nav.inc'); ?> <!-- Include navigation -->
+    <?php include('includes/nav.inc'); ?>
 
     <!-- Main Content -->
     <div class="container mt-5">

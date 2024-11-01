@@ -4,11 +4,11 @@ session_start();
 
 include('includes/db_connect.inc');
 
-// Initialize variables for form handling
+// Form handling
 $username = $password = '';
 $usernameErr = $passwordErr = $registerErr = '';
 
-// Handle form submission
+// Submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
