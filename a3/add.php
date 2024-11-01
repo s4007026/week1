@@ -1,7 +1,5 @@
 <?php
-
 session_start();
-
 
 include('includes/db_connect.inc');
 
@@ -69,10 +67,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a New Pet</title>
     <?php include('includes/header.inc'); ?>
 </head>
 <body>
@@ -139,7 +139,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </form>
     </div>
-
 
     <?php include('includes/footer.inc'); ?>
 
